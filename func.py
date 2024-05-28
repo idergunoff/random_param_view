@@ -52,8 +52,45 @@ def parse_file(file_path):
                 list_param = dict_param['param']
                 dict_param['CATEGORY'] = len(list_param)
                 dict_param['ALL PARAM'] = calc_count_all_param(list_param)
+                dict_param['param'] = clear_list_param(list_param)
 
                 pd_data = pd.concat([pd_data, pd.DataFrame([dict_param])], ignore_index=True)
 
                 list_param = []
     return pd_data
+
+
+def clear_list_param(list_param):
+    new_list_param = []
+    for s in list_param:
+        parts = s.split('_')
+        processed_parts = [re.sub(r'\d+', '', part) for part in parts]
+        new_string = '_'.join(processed_parts)
+        if new_string.endswith('__'):
+            new_string = new_string[:-2]
+        if new_string.endswith('_'):
+            new_string = new_string[:-1]
+        new_list_param.append(new_string)
+
+    return new_list_param
+
+
+def find_common_param(list_param):
+    flattened_list = [item for sublist in list_param for item in sublist]
+    common_param = Counter(flattened_list)
+    return common_param
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
