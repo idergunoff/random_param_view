@@ -117,7 +117,7 @@ ui.pushButton_open_file.clicked.connect(open_file)
 ui.doubleSpinBox_from_result.valueChanged.connect(set_min_max_result)
 ui.doubleSpinBox_to_result.valueChanged.connect(set_min_max_result)
 ui.spinBox_from_param.valueChanged.connect(set_min_max_param)
-ui.spinBox_to_param.valueChanged.connect(set_min_max_param)i
+ui.spinBox_to_param.valueChanged.connect(set_min_max_param)
 ui.doubleSpinBox_to_result.valueChanged.connect(draw_graph_all_model)
 ui.doubleSpinBox_from_result.valueChanged.connect(draw_graph_all_model)
 ui.spinBox_to_param.valueChanged.connect(draw_graph_all_model)
