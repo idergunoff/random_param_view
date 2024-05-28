@@ -64,6 +64,12 @@
          <property name="styleSheet">
           <string notr="true">background-color: rgb(143, 240, 164);</string>
          </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
         </widget>
        </item>
        <item row="0" column="4">
@@ -73,6 +79,15 @@
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(153, 193, 241);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="maximum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
          </property>
         </widget>
        </item>
@@ -133,12 +148,27 @@
          <property name="styleSheet">
           <string notr="true">background-color: rgb(87, 227, 137);</string>
          </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
         </widget>
        </item>
        <item row="0" column="6">
         <widget class="QDoubleSpinBox" name="doubleSpinBox_to_result">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(98, 160, 234);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="maximum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
          </property>
         </widget>
        </item>
