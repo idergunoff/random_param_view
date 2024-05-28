@@ -37,7 +37,7 @@ def parse_file(file_path):
         for i in range(len(lines)):
             if lines[i].startswith("Выбранные параметры:"):
                 dict_param = {}
-                param_str = json.dumps([str(i) for i in lines[i+1][2:-3].split("', '")])
+                param_str = [str(i) for i in lines[i+1][2:-3].split("', '")]
                 dict_param['param'] = param_str
                 list_param.append(param_str)
             if lines[i].startswith("roc mean:"):
@@ -49,7 +49,7 @@ def parse_file(file_path):
                 dict_param['percent_mean'] = percent_mean
                 list_param.append(percent_mean)
             if len(list_param) == 3:
-                list_param = json.loads(dict_param['param'])
+                list_param = dict_param['param']
                 dict_param['count_cat'] = len(list_param)
                 dict_param['count_param'] = calc_count_all_param(list_param)
 

@@ -2,7 +2,6 @@ import sys
 from screeninfo import get_monitors
 import chardet
 import pandas as pd
-import json
 
 from qt.rnd_param_view import *
 
