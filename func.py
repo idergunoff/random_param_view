@@ -29,7 +29,7 @@ def calc_count_all_param(list_param):
 
 def parse_file(file_path):
     enc = check_encoding(file_path)
-    pd_data = pd.DataFrame(columns=['roc_mean', 'percent_mean', 'param', 'count_cat', 'count_param'])
+    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'param', 'CATEGORY', 'ALL PARAM'])
     result = []
     with open(file_path, 'r', encoding=enc) as file:
         lines = file.readlines()
@@ -42,16 +42,16 @@ def parse_file(file_path):
                 list_param.append(param_str)
             if lines[i].startswith("roc mean:"):
                 roc_mean = float(lines[i].split("roc mean:")[1].strip().split()[0])
-                dict_param['roc_mean'] = roc_mean
+                dict_param['ROC AUC'] = roc_mean
                 list_param.append(roc_mean)
             if lines[i].startswith("percent mean:"):
                 percent_mean = float(lines[i].split("percent mean:")[1].strip().split()[0])
-                dict_param['percent_mean'] = percent_mean
+                dict_param['PERCENT'] = percent_mean
                 list_param.append(percent_mean)
             if len(list_param) == 3:
                 list_param = dict_param['param']
-                dict_param['count_cat'] = len(list_param)
-                dict_param['count_param'] = calc_count_all_param(list_param)
+                dict_param['CATEGORY'] = len(list_param)
+                dict_param['ALL PARAM'] = calc_count_all_param(list_param)
 
                 pd_data = pd.concat([pd_data, pd.DataFrame([dict_param])], ignore_index=True)
 

@@ -15,10 +15,12 @@ ax_am = figure_am.add_subplot(111)
 figure_zoom = plt.figure()
 canvas_zoom = FigureCanvas(figure_zoom)
 ui.horizontalLayout_zoom.addWidget(canvas_zoom)
+ax_zoom = figure_zoom.add_subplot(111)
 
 figure_cb = plt.figure()
 canvas_cb = FigureCanvas(figure_cb)
 ui.horizontalLayout_count_bar.addWidget(canvas_cb)
+ax_cb = figure_cb.add_subplot(111)
 
 
 def open_file():
@@ -26,7 +28,6 @@ def open_file():
     path = QFileDialog.getOpenFileName()[0]
     ui.lineEdit_path.setText(path)
     pd_data = parse_file(path)
-    print(pd_data['param'])
     set_spin_value()
     draw_graph_all_model()
 
@@ -34,20 +35,12 @@ def open_file():
 
 def set_spin_value():
     global pd_data
-    if ui.checkBox_result.isChecked():
-        ui.doubleSpinBox_from_result.setValue(pd_data['percent_mean'].min())
-        ui.doubleSpinBox_to_result.setValue(pd_data['percent_mean'].max())
-    else:
-        ui.doubleSpinBox_from_result.setValue(pd_data['roc_mean'].min())
-        ui.doubleSpinBox_to_result.setValue(pd_data['roc_mean'].max())
-    if ui.checkBox_param.isChecked():
-        ui.spinBox_from_param.setValue(pd_data['count_cat'].min())
-        ui.spinBox_to_param.setValue(pd_data['count_cat'].max())
-    else:
-        ui.spinBox_from_param.setValue(pd_data['count_param'].min())
-        ui.spinBox_to_param.setValue(pd_data['count_param'].max())
 
+    ui.doubleSpinBox_from_result.setValue(pd_data[ui.checkBox_result.text()].min())
+    ui.doubleSpinBox_to_result.setValue(pd_data[ui.checkBox_result.text()].max())
 
+    ui.spinBox_from_param.setValue(pd_data[ui.checkBox_param.text()].min())
+    ui.spinBox_to_param.setValue(pd_data[ui.checkBox_param.text()].max())
 
 
 def draw_graph_all_model():
@@ -55,8 +48,8 @@ def draw_graph_all_model():
 
     ax_am.cla()
 
-    x = pd_data['percent_mean'].tolist() if ui.checkBox_result.isChecked() else pd_data['roc_mean'].tolist()
-    y = pd_data['count_cat'].tolist() if ui.checkBox_param.isChecked() else pd_data['count_param'].tolist()
+    x = pd_data[ui.checkBox_result.text()].tolist()
+    y = pd_data[ui.checkBox_param.text()].tolist()
 
     ax_am.scatter(x, y)
 
@@ -68,6 +61,35 @@ def draw_graph_all_model():
 
     figure_am.tight_layout()
     canvas_am.draw()
+
+    draw_zoom()
+
+
+def draw_zoom():
+    global pd_data
+
+    ax_zoom.cla()
+
+    x = pd_data[ui.checkBox_result.text()].loc[
+        pd_data[ui.checkBox_result.text()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.checkBox_result.text()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.checkBox_param.text()] >= ui.spinBox_from_param.value()].loc[
+        pd_data[ui.checkBox_param.text()] <= ui.spinBox_to_param.value()].tolist()
+    y = pd_data[ui.checkBox_param.text()].loc[
+        pd_data[ui.checkBox_result.text()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.checkBox_result.text()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.checkBox_param.text()] >= ui.spinBox_from_param.value()].loc[
+        pd_data[ui.checkBox_param.text()] <= ui.spinBox_to_param.value()].tolist()
+
+    ax_zoom.scatter(x, y)
+
+    ax_zoom.grid(True)
+    ax_zoom.set_xlabel(ui.checkBox_result.text())
+    ax_zoom.set_ylabel(ui.checkBox_param.text())
+
+    figure_zoom.tight_layout()
+    canvas_zoom.draw()
+
 
 
 
@@ -99,6 +121,7 @@ def click_checkbox_param():
         ui.spinBox_to_param.setSingleStep(10)
     set_spin_value()
     draw_graph_all_model()
+
 
 def set_min_max_result():
     ui.doubleSpinBox_to_result.setMinimum(ui.doubleSpinBox_from_result.value())
