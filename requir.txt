@@ -1,0 +1,9 @@
+PyQt5
+chardet
+matplotlib
+numpy
+pandas
+scipy
+screeninfo
+seaborn
+
