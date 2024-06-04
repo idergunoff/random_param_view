@@ -54,10 +54,10 @@ def get_nearest_list_param(x, y):
     global pd_data
 
     pd_data_copy = pd_data.copy()
-    pd_data_copy['x_norm'] = (pd_data_copy[ui.checkBox_result.text()] - pd_data_copy[ui.checkBox_result.text()].min()) / (pd_data_copy[ui.checkBox_result.text()].max() - pd_data_copy[ui.checkBox_result.text()].min())
-    pd_data_copy['y_norm'] = (pd_data_copy[ui.checkBox_param.text()] - pd_data_copy[ui.checkBox_param.text()].min()) / (pd_data_copy[ui.checkBox_param.text()].max() - pd_data_copy[ui.checkBox_param.text()].min())
-    x_norm = (x - pd_data_copy[ui.checkBox_result.text()].min()) / (pd_data_copy[ui.checkBox_result.text()].max() - pd_data_copy[ui.checkBox_result.text()].min())
-    y_norm = (y - pd_data_copy[ui.checkBox_param.text()].min()) / (pd_data_copy[ui.checkBox_param.text()].max() - pd_data_copy[ui.checkBox_param.text()].min())
+    pd_data_copy['x_norm'] = (pd_data_copy[ui.comboBox_x.currentText()] - pd_data_copy[ui.comboBox_x.currentText()].min()) / (pd_data_copy[ui.comboBox_x.currentText()].max() - pd_data_copy[ui.comboBox_x.currentText()].min())
+    pd_data_copy['y_norm'] = (pd_data_copy[ui.comboBox_y.currentText()] - pd_data_copy[ui.comboBox_y.currentText()].min()) / (pd_data_copy[ui.comboBox_y.currentText()].max() - pd_data_copy[ui.comboBox_y.currentText()].min())
+    x_norm = (x - pd_data_copy[ui.comboBox_x.currentText()].min()) / (pd_data_copy[ui.comboBox_x.currentText()].max() - pd_data_copy[ui.comboBox_x.currentText()].min())
+    y_norm = (y - pd_data_copy[ui.comboBox_y.currentText()].min()) / (pd_data_copy[ui.comboBox_y.currentText()].max() - pd_data_copy[ui.comboBox_y.currentText()].min())
 
     pd_data_copy['distance'] = ((pd_data_copy['x_norm'] - x_norm) ** 2 + (pd_data_copy['y_norm'] - y_norm) ** 2) ** 0.5
     list_param = pd_data_copy['param'].loc[pd_data_copy['distance'] == pd_data_copy['distance'].min()].values[0]
@@ -82,11 +82,25 @@ def open_file():
 def set_spin_value():
     global pd_data
 
-    ui.doubleSpinBox_from_result.setValue(pd_data[ui.checkBox_result.text()].min())
-    ui.doubleSpinBox_to_result.setValue(pd_data[ui.checkBox_result.text()].max())
+    if ui.comboBox_x.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc']:
+        ui.doubleSpinBox_from_result.setMaximum(1000)
+        ui.doubleSpinBox_to_result.setMaximum(1000)
+    else:
+        ui.doubleSpinBox_from_result.setMaximum(1)
+        ui.doubleSpinBox_to_result.setMaximum(1)
 
-    ui.spinBox_from_param.setValue(pd_data[ui.checkBox_param.text()].min())
-    ui.spinBox_to_param.setValue(pd_data[ui.checkBox_param.text()].max())
+    ui.doubleSpinBox_from_result.setValue(pd_data[ui.comboBox_x.currentText()].min())
+    ui.doubleSpinBox_to_result.setValue(pd_data[ui.comboBox_x.currentText()].max())
+
+    if ui.comboBox_y.currentText() in ['ROC AUC', 'PERCENT']:
+        ui.spinBox_from_param.hide()
+        ui.spinBox_to_param.hide()
+    else:
+        ui.spinBox_from_param.show()
+        ui.spinBox_to_param.show()
+
+        ui.spinBox_from_param.setValue(int(pd_data[ui.comboBox_y.currentText()].min()))
+        ui.spinBox_to_param.setValue(int(pd_data[ui.comboBox_y.currentText()].max()))
 
 
 def draw_graph_all_model():
@@ -94,51 +108,47 @@ def draw_graph_all_model():
 
     ax_am.cla()
 
-    update_rectangle()
+    if ui.spinBox_from_param.isVisible():
+        update_rectangle()
 
-    x = pd_data[ui.checkBox_result.text()].tolist()
-    y = pd_data[ui.checkBox_param.text()].tolist()
+    x = pd_data[ui.comboBox_x.currentText()].tolist()
+    y = pd_data[ui.comboBox_y.currentText()].tolist()
 
     ax_am.scatter(x, y)
 
     if choose_param():
-        x_red = get_value_contain_param(ui.checkBox_result.text())
-        y_red = get_value_contain_param(ui.checkBox_param.text())
+        x_red = get_value_contain_param(ui.comboBox_x.currentText())
+        y_red = get_value_contain_param(ui.comboBox_y.currentText())
 
         ax_am.scatter(x_red, y_red, c='r')
 
         ax_distr.cla()
         sns.histplot(x_red, kde=True, ax=ax_distr, bins=50)
-        ax_distr.set_xlim(pd_data[ui.checkBox_result.text()].min(), pd_data[ui.checkBox_result.text()].max())
+        ax_distr.set_xlim(pd_data[ui.comboBox_x.currentText()].min(), pd_data[ui.comboBox_x.currentText()].max())
         ax_distr.grid(True)
         figure_distr.tight_layout()
         canvas_distr.draw()
 
-    if not ui.radioButton_off.isChecked():
-        num_param = 'off'
-        for i in ui.groupBox.findChildren(QtWidgets.QRadioButton):
-            if i.isChecked():
-                num_param = i.text()
+    if ui.comboBox_z.currentText() != 'off':
 
         pd_data_copy = pd_data.copy()
-        pd_data_copy = pd_data_copy.loc[pd_data_copy[num_param] != 0]
+        pd_data_copy = pd_data_copy.loc[pd_data_copy[ui.comboBox_z.currentText()] != 0]
 
-        print(pd_data_copy)
-
-        sns.scatterplot(data=pd_data_copy, x=ui.checkBox_result.text(), y=ui.checkBox_param.text(), hue=num_param,
-                        sizes=(10, 350), size=num_param, ax=ax_am, palette='rainbow')
-
-
+        sns.scatterplot(data=pd_data_copy, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
+                        hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(), ax=ax_am,
+                        palette='rainbow')
 
     ax_am.grid(True)
-    ax_am.set_xlabel(ui.checkBox_result.text())
-    ax_am.set_ylabel(ui.checkBox_param.text())
+    ax_am.set_xlabel(ui.comboBox_x.currentText())
+    ax_am.set_ylabel(ui.comboBox_y.currentText())
 
 
     figure_am.tight_layout()
     canvas_am.draw()
 
-    draw_zoom()
+
+    if ui.spinBox_from_param.isVisible():
+        draw_zoom()
     draw_count_bar()
 
 
@@ -147,62 +157,24 @@ def draw_graph():
 
     fig, ax_out = plt.subplots()
 
-    x = pd_data[ui.checkBox_result.text()].tolist()
-    y = pd_data[ui.checkBox_param.text()].tolist()
+    x = pd_data[ui.comboBox_x.currentText()].tolist()
+    y = pd_data[ui.comboBox_y.currentText()].tolist()
 
     ax_out.scatter(x, y)
 
-    if not ui.radioButton_off.isChecked():
-        num_param = 'off'
-        for i in ui.groupBox.findChildren(QtWidgets.QRadioButton):
-            if i.isChecked():
-                num_param = i.text()
+    if ui.comboBox_z.currentText() != 'off':
 
         pd_data_copy = pd_data.copy()
-        pd_data_copy = pd_data_copy.loc[pd_data_copy[num_param] != 0]
+        pd_data_copy = pd_data_copy.loc[pd_data_copy[ui.comboBox_z.currentText()] != 0]
 
-        print(pd_data_copy)
-
-        sns.scatterplot(data=pd_data_copy, x=ui.checkBox_result.text(), y=ui.checkBox_param.text(), hue=num_param,
-                        sizes=(10, 350), size=num_param, ax=ax_out, palette='rainbow')
-
+        sns.scatterplot(data=pd_data_copy, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
+                        hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(), ax=ax_out,
+                        palette='rainbow')
 
 
     ax_out.grid(True)
-    ax_out.set_xlabel(ui.checkBox_result.text())
-    ax_out.set_ylabel(ui.checkBox_param.text())
-
-
-    fig.tight_layout()
-    fig.show()
-
-
-def draw_n_graph():
-    global pd_data
-
-    fig, ax_out = plt.subplots()
-
-    num_param = ui.checkBox_param.text()
-    if not ui.radioButton_off.isChecked():
-        for i in ui.groupBox.findChildren(QtWidgets.QRadioButton):
-            if i.isChecked():
-                num_param = i.text()
-
-    x = pd_data[ui.checkBox_result.text()].tolist()
-    y = pd_data[num_param].tolist()
-
-    ax_out.scatter(x, y)
-
-    if not ui.radioButton_off.isChecked():
-        pd_data_copy = pd_data.copy()
-        pd_data_copy = pd_data_copy.loc[pd_data_copy[num_param] != 0]
-
-        sns.scatterplot(data=pd_data_copy, x=ui.checkBox_result.text(), y=num_param, hue=ui.checkBox_param.text(),
-                        sizes=(10, 350), size=ui.checkBox_param.text(), ax=ax_out, palette='rainbow')
-
-    ax_out.grid(True)
-    ax_out.set_xlabel(ui.checkBox_result.text())
-    ax_out.set_ylabel(num_param)
+    ax_out.set_xlabel(ui.comboBox_x.currentText())
+    ax_out.set_ylabel(ui.comboBox_y.currentText())
 
     fig.tight_layout()
     fig.show()
@@ -213,22 +185,22 @@ def draw_zoom():
 
     ax_zoom.cla()
 
-    x = pd_data[ui.checkBox_result.text()].loc[
-        pd_data[ui.checkBox_result.text()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.checkBox_result.text()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.checkBox_param.text()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.checkBox_param.text()] <= ui.spinBox_to_param.value()].tolist()
-    y = pd_data[ui.checkBox_param.text()].loc[
-        pd_data[ui.checkBox_result.text()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.checkBox_result.text()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.checkBox_param.text()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.checkBox_param.text()] <= ui.spinBox_to_param.value()].tolist()
+    x = pd_data[ui.comboBox_x.currentText()].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
+    y = pd_data[ui.comboBox_y.currentText()].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
 
     ax_zoom.scatter(x, y)
 
     if choose_param():
-        x_red = get_value_contain_param(ui.checkBox_result.text())
-        y_red = get_value_contain_param(ui.checkBox_param.text())
+        x_red = get_value_contain_param(ui.comboBox_x.currentText())
+        y_red = get_value_contain_param(ui.comboBox_y.currentText())
 
         x_red_zoom, y_red_zoom = [], []
 
@@ -240,8 +212,8 @@ def draw_zoom():
         ax_zoom.scatter(x_red_zoom, y_red_zoom, c='r')
 
     ax_zoom.grid(True)
-    ax_zoom.set_xlabel(ui.checkBox_result.text())
-    ax_zoom.set_ylabel(ui.checkBox_param.text())
+    ax_zoom.set_xlabel(ui.comboBox_x.currentText())
+    ax_zoom.set_ylabel(ui.comboBox_y.currentText())
 
     figure_zoom.tight_layout()
     canvas_zoom.draw()
@@ -251,10 +223,10 @@ def draw_count_bar():
     global pd_data
 
     list_param = pd_data['param'].loc[
-        pd_data[ui.checkBox_result.text()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.checkBox_result.text()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.checkBox_param.text()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.checkBox_param.text()] <= ui.spinBox_to_param.value()].tolist()
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
 
     common_param = dict(find_common_param(list_param))
     common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
@@ -307,10 +279,10 @@ def calc_freq_param_in_area():
     global pd_data
 
     list_param = pd_data['param'].loc[
-        pd_data[ui.checkBox_result.text()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.checkBox_result.text()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.checkBox_param.text()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.checkBox_param.text()] <= ui.spinBox_to_param.value()].tolist()
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
 
     return calc_freq_param(list_param)
 
@@ -370,6 +342,7 @@ def check_contain_param(list_all_param, list_curr_param):
             return False
     return True
 
+
 def update_rectangle():
     rect = (patches.Rectangle((ui.doubleSpinBox_from_result.value(), ui.spinBox_from_param.value()),
                               ui.doubleSpinBox_to_result.value() - ui.doubleSpinBox_from_result.value(),
@@ -377,26 +350,7 @@ def update_rectangle():
                               facecolor='#ffc673', alpha=0.2))
     ax_am.add_patch(rect)
 
-def click_checkbox_result():
-    if ui.checkBox_result.isChecked():
-        ui.checkBox_result.setText('PERCENT')
-    else:
-        ui.checkBox_result.setText('ROC AUC')
-    set_spin_value()
-    draw_graph_all_model()
 
-
-def click_checkbox_param():
-    if ui.checkBox_param.isChecked():
-        ui.checkBox_param.setText('CATEGORY')
-        ui.spinBox_from_param.setSingleStep(1)
-        ui.spinBox_to_param.setSingleStep(1)
-    else:
-        ui.checkBox_param.setText('ALL PARAM')
-        ui.spinBox_from_param.setSingleStep(10)
-        ui.spinBox_to_param.setSingleStep(10)
-    set_spin_value()
-    draw_graph_all_model()
 
 
 def set_min_result():
@@ -428,14 +382,13 @@ def rm_check():
 
 
 
-ui.checkBox_result.stateChanged.connect(click_checkbox_result)
-ui.checkBox_param.stateChanged.connect(click_checkbox_param)
-ui.pushButton_open_file.clicked.connect(open_file)
+ui.comboBox_x.currentTextChanged.connect(set_spin_value)
+ui.comboBox_y.currentTextChanged.connect(set_spin_value)
+ui.comboBox_x.currentTextChanged.connect(draw_graph_all_model)
+ui.comboBox_y.currentTextChanged.connect(draw_graph_all_model)
+ui.comboBox_z.currentTextChanged.connect(draw_graph_all_model)
 
-# ui.doubleSpinBox_to_result.valueChanged.connect(draw_graph_all_model)
-# ui.doubleSpinBox_from_result.valueChanged.connect(draw_graph_all_model)
-# ui.spinBox_to_param.valueChanged.connect(draw_graph_all_model)
-# ui.spinBox_from_param.valueChanged.connect(draw_graph_all_model)
+ui.pushButton_open_file.clicked.connect(open_file)
 
 ui.doubleSpinBox_from_result.valueChanged.connect(set_min_result)
 ui.doubleSpinBox_to_result.valueChanged.connect(set_max_result)
@@ -447,15 +400,7 @@ ui.toolButton_dict1.clicked.connect(calc_freq_param_in_area1)
 ui.toolButton_dict2.clicked.connect(calc_freq_param_in_area2)
 ui.toolButton_result.clicked.connect(calc_freq_param_result)
 
-ui.radioButton_off.clicked.connect(draw_graph_all_model)
-ui.radioButton_distr.clicked.connect(draw_graph_all_model)
-ui.radioButton_sep.clicked.connect(draw_graph_all_model)
-ui.radioButton_mfcc.clicked.connect(draw_graph_all_model)
-ui.radioButton_sig_up.clicked.connect(draw_graph_all_model)
-ui.radioButton_sig_down.clicked.connect(draw_graph_all_model)
-
 ui.toolButton_draw_graph.clicked.connect(draw_graph)
-ui.pushButton_n_graph.clicked.connect(draw_n_graph)
 
 figure_am.canvas.mpl_connect('button_press_event', on_mouse_move)
 

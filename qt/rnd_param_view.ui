@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1107</width>
+    <width>1146</width>
     <height>624</height>
    </rect>
   </property>
@@ -102,23 +102,189 @@
      </item>
      <item row="2" column="0">
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="6">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_result">
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox_x">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(98, 160, 234);</string>
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
          </property>
-         <property name="decimals">
-          <number>4</number>
+         <item>
+          <property name="text">
+           <string>ROC AUC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PERCENT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig up</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig down</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>distr</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sep</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>mfcc</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QLabel" name="label">
+         <property name="autoFillBackground">
+          <bool>false</bool>
          </property>
-         <property name="maximum">
-          <double>1.000000000000000</double>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
          </property>
-         <property name="singleStep">
-          <double>0.001000000000000</double>
+         <property name="text">
+          <string>from X:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
+         </property>
+         <property name="text">
+          <string>X:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="comboBox_y">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>ALL PARAM</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>CATEGORY</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ROC AUC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PERCENT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig up</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig down</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>distr</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sep</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>mfcc</string>
+          </property>
+         </item>
+        </widget>
+       </item>
        <item row="0" column="4">
+        <widget class="QLabel" name="label_7">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 159, 152);</string>
+         </property>
+         <property name="text">
+          <string>Z:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="12">
+        <widget class="QSpinBox" name="spinBox_from_param">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_6">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="text">
+          <string>Y:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="13">
+        <widget class="QLabel" name="label_4">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(87, 227, 137);</string>
+         </property>
+         <property name="text">
+          <string>to Y:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="14">
+        <widget class="QSpinBox" name="spinBox_to_param">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(87, 227, 137);</string>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+         <property name="singleStep">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
         <widget class="QDoubleSpinBox" name="doubleSpinBox_from_result">
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -138,55 +304,35 @@
         </widget>
        </item>
        <item row="0" column="10">
-        <widget class="QSpinBox" name="spinBox_to_param">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_result">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(87, 227, 137);</string>
+          <string notr="true">background-color: rgb(98, 160, 234);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
          </property>
          <property name="maximum">
-          <number>100000</number>
+          <double>1.000000000000000</double>
          </property>
          <property name="singleStep">
-          <number>10</number>
+          <double>0.001000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox_param">
+       <item row="0" column="9">
+        <widget class="QLabel" name="label_2">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(143, 240, 164);</string>
+          <string notr="true">background-color: rgb(98, 160, 234);</string>
          </property>
          <property name="text">
-          <string>ALL PARAM</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox_result">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(153, 193, 241);</string>
-         </property>
-         <property name="text">
-          <string>ROC AUC</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="label">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(153, 193, 241);</string>
-         </property>
-         <property name="text">
-          <string>from result:</string>
+          <string>to X:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
+       <item row="0" column="6">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -199,59 +345,20 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="8">
-        <widget class="QSpinBox" name="spinBox_from_param">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(143, 240, 164);</string>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-         <property name="singleStep">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7">
+       <item row="0" column="11">
         <widget class="QLabel" name="label_3">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(143, 240, 164);</string>
          </property>
          <property name="text">
-          <string>from N param:</string>
+          <string>from Y:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="0" column="9">
-        <widget class="QLabel" name="label_4">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(87, 227, 137);</string>
-         </property>
-         <property name="text">
-          <string>to N param:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QLabel" name="label_2">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(98, 160, 234);</string>
-         </property>
-         <property name="text">
-          <string>to result:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="11">
+       <item row="0" column="15">
         <widget class="QToolButton" name="toolButton_draw_graph">
          <property name="toolTip">
           <string>draw graph</string>
@@ -264,6 +371,63 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="5">
+        <widget class="QComboBox" name="comboBox_z">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 159, 152);</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>off</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ROC AUC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PERCENT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ALL PARAM</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>CATEGORY</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig up</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig down</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>distr</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sep</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>mfcc</string>
+          </property>
+         </item>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -272,80 +436,6 @@
     <layout class="QGridLayout" name="gridLayout_8">
      <item row="0" column="0">
       <widget class="QListWidget" name="listWidget"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>Num Param</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_7">
-        <item row="2" column="0">
-         <widget class="QRadioButton" name="radioButton_sig_down">
-          <property name="text">
-           <string>sig down</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QRadioButton" name="radioButton_sep">
-          <property name="text">
-           <string>sep</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QRadioButton" name="radioButton_off">
-          <property name="text">
-           <string>off</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QRadioButton" name="radioButton_distr">
-          <property name="text">
-           <string>distr</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QRadioButton" name="radioButton_sig_up">
-          <property name="text">
-           <string>sig up</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QRadioButton" name="radioButton_mfcc">
-          <property name="text">
-           <string>mfcc</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="pushButton_n_graph">
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Построить график зависимости числовой &lt;/p&gt;&lt;p&gt;состовляющей параметра от качества модели. &lt;/p&gt;&lt;p&gt;Цветом показано количество параметров.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 190, 111);</string>
-          </property>
-          <property name="text">
-           <string>NPG</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
      </item>
     </layout>
    </item>
