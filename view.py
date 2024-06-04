@@ -340,7 +340,7 @@ def calc_freq_param_result():
 
     ax_distr.cla()
     ax_distr.bar([elem[0] for elem in dict_result], [elem[1] for elem in dict_result])
-    ax_distr.tick_params(axis='x', labelrotation=90)
+    ax_distr.tick_params(axis='x', labelrotation=90, labelsize=8)
     ax_distr.grid(True)
     figure_distr.tight_layout()
     canvas_distr.draw()
