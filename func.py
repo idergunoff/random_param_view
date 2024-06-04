@@ -27,6 +27,21 @@ def calc_count_all_param(list_param):
     return n
 
 
+def get_num_param(list_param):
+    n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc = 0, 0, 0, 0, 0
+    for i in list_param:
+        if i.startswith('sig'):
+            n_sig_up = int(i.split('_')[2])
+            n_sig_down = int(i.split('_')[3])
+        if i.startswith('distr'):
+            n_distr = int(i.split('_')[2])
+        if i.startswith('sep'):
+            n_sep = int(i.split('_')[2])
+        if i.startswith('mfcc'):
+            n_mfcc = int(i.split('_')[2])
+    return n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc
+
+
 def parse_file(file_path):
     enc = check_encoding(file_path)
     pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'param', 'CATEGORY', 'ALL PARAM'])
@@ -50,9 +65,17 @@ def parse_file(file_path):
                 list_param.append(percent_mean)
             if len(list_param) == 3:
                 list_param = dict_param['param']
+
+                n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc = get_num_param(list_param)
+
                 dict_param['CATEGORY'] = len(list_param)
                 dict_param['ALL PARAM'] = calc_count_all_param(list_param)
                 dict_param['param'] = clear_list_param(list_param)
+                dict_param['sig up'] = n_sig_up
+                dict_param['sig down'] = n_sig_down
+                dict_param['distr'] = n_distr
+                dict_param['sep'] = n_sep
+                dict_param['mfcc'] = n_mfcc
 
                 pd_data = pd.concat([pd_data, pd.DataFrame([dict_param])], ignore_index=True)
 
