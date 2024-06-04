@@ -34,11 +34,11 @@ def on_mouse_move(event):
         if event.button == 1:
             x, y = event.xdata, event.ydata
             l_result = (ui.doubleSpinBox_to_result.value() - ui.doubleSpinBox_from_result.value()) / 2
-            l_param = (ui.spinBox_to_param.value() - ui.spinBox_from_param.value()) / 2
+            l_param = (ui.doubleSpinBox_to_param.value() - ui.doubleSpinBox_from_param.value()) / 2
             ui.doubleSpinBox_to_result.setValue(x + l_result)
             ui.doubleSpinBox_from_result.setValue(x - l_result)
-            ui.spinBox_to_param.setValue(int(y + l_param))
-            ui.spinBox_from_param.setValue(int(y - l_param))
+            ui.doubleSpinBox_to_param.setValue(y + l_param)
+            ui.doubleSpinBox_from_param.setValue(y - l_param)
         elif event.button == 3:
             x, y = event.xdata, event.ydata
             list_nearest_param = get_nearest_list_param(x, y)
@@ -89,18 +89,28 @@ def set_spin_value():
         ui.doubleSpinBox_from_result.setMaximum(1)
         ui.doubleSpinBox_to_result.setMaximum(1)
 
+    if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'ALL PARAM', 'CATEGORY']:
+        ui.doubleSpinBox_from_param.setMaximum(5000)
+        ui.doubleSpinBox_to_param.setMaximum(5000)
+    else:
+        ui.doubleSpinBox_from_param.setMaximum(1)
+        ui.doubleSpinBox_to_param.setMaximum(1)
+
+    if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'CATEGORY']:
+        ui.doubleSpinBox_from_param.setSingleStep(1)
+        ui.doubleSpinBox_to_param.setSingleStep(1)
+    elif ui.comboBox_y.currentText() in ['ALL PARAM']:
+        ui.doubleSpinBox_from_param.setSingleStep(10)
+        ui.doubleSpinBox_to_param.setSingleStep(10)
+    else:
+        ui.doubleSpinBox_from_param.setSingleStep(0.001)
+        ui.doubleSpinBox_to_param.setSingleStep(0.001)
+
     ui.doubleSpinBox_from_result.setValue(pd_data[ui.comboBox_x.currentText()].min())
     ui.doubleSpinBox_to_result.setValue(pd_data[ui.comboBox_x.currentText()].max())
 
-    if ui.comboBox_y.currentText() in ['ROC AUC', 'PERCENT']:
-        ui.spinBox_from_param.hide()
-        ui.spinBox_to_param.hide()
-    else:
-        ui.spinBox_from_param.show()
-        ui.spinBox_to_param.show()
-
-        ui.spinBox_from_param.setValue(int(pd_data[ui.comboBox_y.currentText()].min()))
-        ui.spinBox_to_param.setValue(int(pd_data[ui.comboBox_y.currentText()].max()))
+    ui.doubleSpinBox_from_param.setValue(pd_data[ui.comboBox_y.currentText()].min())
+    ui.doubleSpinBox_to_param.setValue(pd_data[ui.comboBox_y.currentText()].max())
 
 
 def draw_graph_all_model():
@@ -108,8 +118,7 @@ def draw_graph_all_model():
 
     ax_am.cla()
 
-    if ui.spinBox_from_param.isVisible():
-        update_rectangle()
+    update_rectangle()
 
     x = pd_data[ui.comboBox_x.currentText()].tolist()
     y = pd_data[ui.comboBox_y.currentText()].tolist()
@@ -147,8 +156,7 @@ def draw_graph_all_model():
     canvas_am.draw()
 
 
-    if ui.spinBox_from_param.isVisible():
-        draw_zoom()
+    draw_zoom()
     draw_count_bar()
 
 
@@ -188,13 +196,13 @@ def draw_zoom():
     x = pd_data[ui.comboBox_x.currentText()].loc[
         pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
         pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
     y = pd_data[ui.comboBox_y.currentText()].loc[
         pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
         pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
     ax_zoom.scatter(x, y)
 
@@ -225,8 +233,8 @@ def draw_count_bar():
     list_param = pd_data['param'].loc[
         pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
         pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
     common_param = dict(find_common_param(list_param))
     common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
@@ -281,8 +289,8 @@ def calc_freq_param_in_area():
     list_param = pd_data['param'].loc[
         pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
         pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.spinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.spinBox_to_param.value()].tolist()
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
     return calc_freq_param(list_param)
 
@@ -344,9 +352,9 @@ def check_contain_param(list_all_param, list_curr_param):
 
 
 def update_rectangle():
-    rect = (patches.Rectangle((ui.doubleSpinBox_from_result.value(), ui.spinBox_from_param.value()),
+    rect = (patches.Rectangle((ui.doubleSpinBox_from_result.value(), ui.doubleSpinBox_from_param.value()),
                               ui.doubleSpinBox_to_result.value() - ui.doubleSpinBox_from_result.value(),
-                              ui.spinBox_to_param.value() - ui.spinBox_from_param.value(), linewidth=1, edgecolor='r',
+                              ui.doubleSpinBox_to_param.value() - ui.doubleSpinBox_from_param.value(), linewidth=1, edgecolor='r',
                               facecolor='#ffc673', alpha=0.2))
     ax_am.add_patch(rect)
 
@@ -363,12 +371,12 @@ def set_max_result():
 
 
 def set_min_param():
-    # ui.spinBox_to_param.setMinimum(ui.spinBox_from_param.value())
+    # ui.doubleSpinBox_to_param.setMinimum(ui.doubleSpinBox_from_param.value())
     draw_graph_all_model()
 
 
 def set_max_param():
-    # ui.spinBox_from_param.setMaximum(ui.spinBox_to_param.value())
+    # ui.doubleSpinBox_from_param.setMaximum(ui.doubleSpinBox_to_param.value())
     draw_graph_all_model()
 
 
@@ -392,8 +400,8 @@ ui.pushButton_open_file.clicked.connect(open_file)
 
 ui.doubleSpinBox_from_result.valueChanged.connect(set_min_result)
 ui.doubleSpinBox_to_result.valueChanged.connect(set_max_result)
-ui.spinBox_from_param.valueChanged.connect(set_min_param)
-ui.spinBox_to_param.valueChanged.connect(set_max_param)
+ui.doubleSpinBox_from_param.valueChanged.connect(set_min_param)
+ui.doubleSpinBox_to_param.valueChanged.connect(set_max_param)
 ui.toolButton_rm_check.clicked.connect(rm_check)
 
 ui.toolButton_dict1.clicked.connect(calc_freq_param_in_area1)
