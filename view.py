@@ -265,7 +265,7 @@ def draw_count_bar():
     color_list = ['#ff9f98' if i in checked_param else '#aad5ff' for i in list_name_param]
     ax_cb.bar(list_name_param, [elem[1] for elem in common_param], color=color_list)
     ax_cb.grid(True)
-    ax_cb.tick_params(axis='x', labelrotation=90)
+    ax_cb.tick_params(axis='x', labelrotation=90, labelsize=8)
     ax_cb.set_title(f'Параметры в выделенной области по {len(list_param)} моделям.')
 
     figure_cb.tight_layout()
