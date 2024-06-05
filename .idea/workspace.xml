@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="draw param bar, mouse move">
+    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="axis y - doubleSpinBox">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func.py" beforeDir="false" afterPath="$PROJECT_DIR$/func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/object.py" beforeDir="false" afterPath="$PROJECT_DIR$/object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qt/rnd_param_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/rnd_param_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qt/rnd_param_view.ui" beforeDir="false" afterPath="$PROJECT_DIR$/qt/rnd_param_view.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;idergunoff&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/idergunoff/random_param_view.git&quot;,
+    &quot;accountId&quot;: &quot;b8a09e1a-ca4b-4ca4-82b9-251acfcdc5c2&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -127,7 +134,79 @@
       <option name="project" value="LOCAL" />
       <updated>1716904997434</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="axis z - color">
+      <option name="closed" value="true" />
+      <created>1717486576952</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717486576952</updated>
+    </task>
+    <task id="LOCAL-00006" summary="requir">
+      <option name="closed" value="true" />
+      <created>1717488895843</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717488895843</updated>
+    </task>
+    <task id="LOCAL-00007" summary="qt update">
+      <option name="closed" value="true" />
+      <created>1717489503961</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717489503961</updated>
+    </task>
+    <task id="LOCAL-00008" summary="qt update">
+      <option name="closed" value="true" />
+      <created>1717489605399</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717489605399</updated>
+    </task>
+    <task id="LOCAL-00009" summary="qt update">
+      <option name="closed" value="true" />
+      <created>1717489837774</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1717489837774</updated>
+    </task>
+    <task id="LOCAL-00010" summary="font size">
+      <option name="closed" value="true" />
+      <created>1717490081029</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1717490081029</updated>
+    </task>
+    <task id="LOCAL-00011" summary="font size">
+      <option name="closed" value="true" />
+      <created>1717490185705</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1717490185705</updated>
+    </task>
+    <task id="LOCAL-00012" summary="choos axis z y z">
+      <option name="closed" value="true" />
+      <created>1717500006960</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1717500006960</updated>
+    </task>
+    <task id="LOCAL-00013" summary="axis y - doubleSpinBox">
+      <option name="closed" value="true" />
+      <created>1717502171131</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1717502171131</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,6 +225,12 @@
     <MESSAGE value="gitignore" />
     <MESSAGE value="draw zoom" />
     <MESSAGE value="draw param bar, mouse move" />
-    <option name="LAST_COMMIT_MESSAGE" value="draw param bar, mouse move" />
+    <MESSAGE value="axis z - color" />
+    <MESSAGE value="requir" />
+    <MESSAGE value="qt update" />
+    <MESSAGE value="font size" />
+    <MESSAGE value="choos axis z y z" />
+    <MESSAGE value="axis y - doubleSpinBox" />
+    <option name="LAST_COMMIT_MESSAGE" value="axis y - doubleSpinBox" />
   </component>
 </project>

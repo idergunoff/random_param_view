@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pandas as pd
 
 from func import *
 
@@ -126,13 +127,18 @@ def draw_graph_all_model():
     ax_am.scatter(x, y)
 
     if choose_param():
-        x_red = get_value_contain_param(ui.comboBox_x.currentText())
-        y_red = get_value_contain_param(ui.comboBox_y.currentText())
+        x_green = get_value_contain_param(ui.comboBox_x.currentText())
+        y_green = get_value_contain_param(ui.comboBox_y.currentText())
+
+        ax_am.scatter(x_green, y_green, c='g')
+
+        x_red = get_value_match_param(ui.comboBox_x.currentText())
+        y_red = get_value_match_param(ui.comboBox_y.currentText())
 
         ax_am.scatter(x_red, y_red, c='r')
 
         ax_distr.cla()
-        sns.histplot(x_red, kde=True, ax=ax_distr, bins=50)
+        sns.histplot(x_green, kde=True, ax=ax_distr, bins=50)
         ax_distr.set_xlim(pd_data[ui.comboBox_x.currentText()].min(), pd_data[ui.comboBox_x.currentText()].max())
         ax_distr.grid(True)
         figure_distr.tight_layout()
@@ -154,7 +160,6 @@ def draw_graph_all_model():
 
     figure_am.tight_layout()
     canvas_am.draw()
-
 
     draw_zoom()
     draw_count_bar()
@@ -204,20 +209,45 @@ def draw_zoom():
         pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
         pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
+
+
     ax_zoom.scatter(x, y)
 
     if choose_param():
-        x_red = get_value_contain_param(ui.comboBox_x.currentText())
-        y_red = get_value_contain_param(ui.comboBox_y.currentText())
+        x_red = get_value_match_param(ui.comboBox_x.currentText())
+        y_red = get_value_match_param(ui.comboBox_y.currentText())
 
-        x_red_zoom, y_red_zoom = [], []
+        x_green = get_value_contain_param(ui.comboBox_x.currentText())
+        y_green = get_value_contain_param(ui.comboBox_y.currentText())
+
+        x_red_zoom, y_red_zoom, x_green_zoom, y_green_zoom = [], [], [], []
 
         for i in range(len(x_red)):
             if x_red[i] in x and y_red[i] in y:
                 x_red_zoom.append(x_red[i])
                 y_red_zoom.append(y_red[i])
 
+        for i in range(len(x_green)):
+            if x_green[i] in x and y_green[i] in y:
+                x_green_zoom.append(x_green[i])
+                y_green_zoom.append(y_green[i])
+
+        ax_zoom.scatter(x_green_zoom, y_green_zoom, c='g')
         ax_zoom.scatter(x_red_zoom, y_red_zoom, c='r')
+
+    if ui.comboBox_z.currentText() != 'off':
+        z = pd_data[ui.comboBox_z.currentText()].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] != 0].tolist()
+
+        pd_zoom = pd.DataFrame({ui.comboBox_x.currentText(): x, ui.comboBox_y.currentText(): y, ui.comboBox_z.currentText(): z})
+        sns.scatterplot(data=pd_zoom, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
+                        hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(),
+                        ax=ax_zoom, palette='rainbow')
+        ui.label_mean.setText(str(round(np.mean(z), 2)))
 
     ax_zoom.grid(True)
     ax_zoom.set_xlabel(ui.comboBox_x.currentText())
@@ -344,11 +374,24 @@ def get_value_contain_param(column_name):
 
     return list_value
 
+
+def get_value_match_param(column_name):
+    global pd_data
+    list_param = choose_param()
+    list_value = []
+    for i in pd_data.index:
+        if set(pd_data['param'][i]) == set(list_param):
+            list_value.append(pd_data[column_name][i])
+
+    return list_value
+
+
 def check_contain_param(list_all_param, list_curr_param):
     for i in list_curr_param:
         if i not in list_all_param:
             return False
     return True
+
 
 
 def update_rectangle():
