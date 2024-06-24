@@ -75,6 +75,8 @@ def get_nearest_list_param(x, y):
 def open_file():
     global pd_data
     path = QFileDialog.getOpenFileName()[0]
+    if path == '':
+        return
     ui.lineEdit_path.setText(path)
     pd_data = parse_file(path)
 
