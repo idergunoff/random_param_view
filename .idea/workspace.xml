@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="axis y - doubleSpinBox">
+    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="mean z">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/rnd_param_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/rnd_param_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/rnd_param_view.ui" beforeDir="false" afterPath="$PROJECT_DIR$/qt/rnd_param_view.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +92,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
+        <option value="bundled-python-sdk-5b207ade9991-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17890.14" />
       </set>
     </attachedChunks>
   </component>
@@ -206,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717502171131</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="mean z">
+      <option name="closed" value="true" />
+      <created>1717589012686</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1717589012686</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -231,6 +242,7 @@
     <MESSAGE value="font size" />
     <MESSAGE value="choos axis z y z" />
     <MESSAGE value="axis y - doubleSpinBox" />
-    <option name="LAST_COMMIT_MESSAGE" value="axis y - doubleSpinBox" />
+    <MESSAGE value="mean z" />
+    <option name="LAST_COMMIT_MESSAGE" value="mean z" />
   </component>
 </project>

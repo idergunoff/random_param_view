@@ -6,6 +6,11 @@ from func import *
 
 Form.show()
 
+ui.label_8.hide()
+ui.label_9.hide()
+ui.doubleSpinBox_from_z.hide()
+ui.doubleSpinBox_to_z.hide()
+
 m_width, m_height = get_width_height_monitor()
 Form.resize(int(m_width/1.2), int(m_height/1.2))
 
@@ -107,6 +112,24 @@ def set_spin_value():
         ui.doubleSpinBox_from_param.setSingleStep(0.001)
         ui.doubleSpinBox_to_param.setSingleStep(0.001)
 
+    if ui.comboBox_z.currentText() != 'off':
+        ui.doubleSpinBox_from_z.setMaximum(pd_data[ui.comboBox_z.currentText()].max())
+        ui.doubleSpinBox_to_z.setMaximum(pd_data[ui.comboBox_z.currentText()].max())
+
+
+        if ui.comboBox_z.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'CATEGORY']:
+            ui.doubleSpinBox_from_z.setSingleStep(1)
+            ui.doubleSpinBox_to_z.setSingleStep(1)
+        elif ui.comboBox_z.currentText() in ['ALL PARAM']:
+            ui.doubleSpinBox_from_z.setSingleStep(10)
+            ui.doubleSpinBox_to_z.setSingleStep(10)
+        else:
+            ui.doubleSpinBox_from_z.setSingleStep(0.001)
+            ui.doubleSpinBox_to_z.setSingleStep(0.001)
+
+        ui.doubleSpinBox_from_z.setValue(pd_data[ui.comboBox_z.currentText()].min())
+        ui.doubleSpinBox_to_z.setValue(pd_data[ui.comboBox_z.currentText()].max())
+
     ui.doubleSpinBox_from_result.setValue(pd_data[ui.comboBox_x.currentText()].min())
     ui.doubleSpinBox_to_result.setValue(pd_data[ui.comboBox_x.currentText()].max())
 
@@ -153,6 +176,18 @@ def draw_graph_all_model():
                         hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(), ax=ax_am,
                         palette='rainbow')
 
+        ui.label_8.show()
+        ui.label_9.show()
+        ui.doubleSpinBox_from_z.show()
+        ui.doubleSpinBox_to_z.show()
+
+    else:
+        ui.label_8.hide()
+        ui.label_9.hide()
+        ui.doubleSpinBox_from_z.hide()
+        ui.doubleSpinBox_to_z.hide()
+
+
     ax_am.grid(True)
     ax_am.set_xlabel(ui.comboBox_x.currentText())
     ax_am.set_ylabel(ui.comboBox_y.currentText())
@@ -197,18 +232,34 @@ def draw_zoom():
     global pd_data
 
     ax_zoom.cla()
+    if ui.comboBox_z.currentText() == 'off':
+        x = pd_data[ui.comboBox_x.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
+        y = pd_data[ui.comboBox_y.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
-    x = pd_data[ui.comboBox_x.currentText()].loc[
-        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
-    y = pd_data[ui.comboBox_y.currentText()].loc[
-        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
+    else:
+        x = pd_data[ui.comboBox_x.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
 
+        y = pd_data[ui.comboBox_y.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
 
 
     ax_zoom.scatter(x, y)
@@ -236,12 +287,29 @@ def draw_zoom():
         ax_zoom.scatter(x_red_zoom, y_red_zoom, c='r')
 
     if ui.comboBox_z.currentText() != 'off':
+        x = pd_data[ui.comboBox_x.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+        y = pd_data[ui.comboBox_y.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
         z = pd_data[ui.comboBox_z.currentText()].loc[
-        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
-        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
-        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
-        pd_data[ui.comboBox_z.currentText()] != 0].tolist()
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
 
         pd_zoom = pd.DataFrame({ui.comboBox_x.currentText(): x, ui.comboBox_y.currentText(): y, ui.comboBox_z.currentText(): z})
         sns.scatterplot(data=pd_zoom, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
@@ -435,6 +503,7 @@ def rm_check():
 
 ui.comboBox_x.currentTextChanged.connect(set_spin_value)
 ui.comboBox_y.currentTextChanged.connect(set_spin_value)
+ui.comboBox_z.currentTextChanged.connect(set_spin_value)
 ui.comboBox_x.currentTextChanged.connect(draw_graph_all_model)
 ui.comboBox_y.currentTextChanged.connect(draw_graph_all_model)
 ui.comboBox_z.currentTextChanged.connect(draw_graph_all_model)
@@ -445,6 +514,9 @@ ui.doubleSpinBox_from_result.valueChanged.connect(set_min_result)
 ui.doubleSpinBox_to_result.valueChanged.connect(set_max_result)
 ui.doubleSpinBox_from_param.valueChanged.connect(set_min_param)
 ui.doubleSpinBox_to_param.valueChanged.connect(set_max_param)
+ui.doubleSpinBox_from_z.valueChanged.connect(draw_graph_all_model)
+ui.doubleSpinBox_to_z.valueChanged.connect(draw_graph_all_model)
+
 ui.toolButton_rm_check.clicked.connect(rm_check)
 
 ui.toolButton_dict1.clicked.connect(calc_freq_param_in_area1)
