@@ -19,6 +19,19 @@
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="5">
+        <widget class="QToolButton" name="toolButton_result">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(46, 194, 126);</string>
+         </property>
+         <property name="text">
+          <string>d</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLineEdit" name="lineEdit_path"/>
+       </item>
+       <item row="0" column="6">
         <widget class="QToolButton" name="toolButton_rm_check">
          <property name="toolTip">
           <string>очистить чекбоксы</string>
@@ -31,13 +44,23 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
+       <item row="0" column="4">
         <widget class="QToolButton" name="toolButton_dict2">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(28, 113, 216);</string>
          </property>
          <property name="text">
           <string>2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QToolButton" name="toolButton_dict1">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(192, 28, 40);</string>
+         </property>
+         <property name="text">
+          <string>1</string>
          </property>
         </widget>
        </item>
@@ -52,25 +75,12 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QToolButton" name="toolButton_dict1">
+        <widget class="QPushButton" name="pushButton_xlsx">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(192, 28, 40);</string>
+          <string notr="true">background-color: rgb(38, 162, 105);</string>
          </property>
          <property name="text">
-          <string>1</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLineEdit" name="lineEdit_path"/>
-       </item>
-       <item row="0" column="4">
-        <widget class="QToolButton" name="toolButton_result">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(46, 194, 126);</string>
-         </property>
-         <property name="text">
-          <string>d</string>
+          <string>xlsx</string>
          </property>
         </widget>
        </item>

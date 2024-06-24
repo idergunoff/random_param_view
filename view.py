@@ -56,6 +56,18 @@ def on_mouse_move(event):
             draw_graph_all_model()
 
 
+def on_mouse_move_zoom(event):
+    if event.inaxes:
+        if event.button == 3:
+            x, y = event.xdata, event.ydata
+            list_nearest_param = get_nearest_list_param(x, y)
+            for i in ui.listWidget.findChildren(QtWidgets.QCheckBox):
+                if i.text() in list_nearest_param:
+                    i.setChecked(True)
+                else:
+                    i.setChecked(False)
+            draw_graph_all_model()
+
 def get_nearest_list_param(x, y):
     global pd_data
 
@@ -538,6 +550,11 @@ def rm_check():
     draw_graph_all_model()
 
 
+def save_to_xlsx():
+    path = QFileDialog.getSaveFileName()[0]
+    if path == '':
+        return
+    pd_data.to_excel(path, index=False)
 
 
 
@@ -566,6 +583,9 @@ ui.toolButton_result.clicked.connect(calc_freq_param_result)
 
 ui.toolButton_draw_graph.clicked.connect(draw_graph)
 
+ui.pushButton_xlsx.clicked.connect(save_to_xlsx)
+
 figure_am.canvas.mpl_connect('button_press_event', on_mouse_move)
+figure_zoom.canvas.mpl_connect('button_press_event', on_mouse_move_zoom)
 
 sys.exit(app.exec_())
