@@ -207,15 +207,54 @@ def draw_graph():
 
     fig, ax_out = plt.subplots()
 
-    x = pd_data[ui.comboBox_x.currentText()].tolist()
-    y = pd_data[ui.comboBox_y.currentText()].tolist()
+    # x = pd_data[ui.comboBox_x.currentText()].tolist()
+    # y = pd_data[ui.comboBox_y.currentText()].tolist()
+    if ui.comboBox_z.currentText() == 'off':
 
-    ax_out.scatter(x, y)
+        x = pd_data[ui.comboBox_x.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
+        y = pd_data[ui.comboBox_y.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
-    if ui.comboBox_z.currentText() != 'off':
+        ax_out.scatter(x, y)
 
-        pd_data_copy = pd_data.copy()
-        pd_data_copy = pd_data_copy.loc[pd_data_copy[ui.comboBox_z.currentText()] != 0]
+    # if ui.comboBox_z.currentText() != 'off':
+    #
+    #     pd_data_copy = pd_data.copy()
+    #     pd_data_copy = pd_data_copy.loc[pd_data_copy[ui.comboBox_z.currentText()] != 0]
+    else:
+
+        x = pd_data[ui.comboBox_x.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+        y = pd_data[ui.comboBox_y.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+        z = pd_data[ui.comboBox_z.currentText()].loc[
+            pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+            pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+            pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+            pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+        pd_data_copy = pd.DataFrame({ui.comboBox_x.currentText(): x, ui.comboBox_y.currentText(): y, ui.comboBox_z.currentText(): z})
 
         sns.scatterplot(data=pd_data_copy, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
                         hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(), ax=ax_out,
