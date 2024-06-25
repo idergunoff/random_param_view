@@ -73,6 +73,7 @@ def parse_file(file_path):
                 dict_param['param'] = clear_list_param(list_param)
                 dict_param['sig up'] = n_sig_up
                 dict_param['sig down'] = n_sig_down
+                dict_param['width'] = 512 - (n_sig_down + n_sig_up)
                 dict_param['distr'] = n_distr
                 dict_param['sep'] = n_sep
                 dict_param['mfcc'] = n_mfcc

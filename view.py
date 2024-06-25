@@ -102,21 +102,21 @@ def open_file():
 def set_spin_value():
     global pd_data
 
-    if ui.comboBox_x.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc']:
+    if ui.comboBox_x.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'width']:
         ui.doubleSpinBox_from_result.setMaximum(1000)
         ui.doubleSpinBox_to_result.setMaximum(1000)
     else:
         ui.doubleSpinBox_from_result.setMaximum(1)
         ui.doubleSpinBox_to_result.setMaximum(1)
 
-    if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'ALL PARAM', 'CATEGORY']:
+    if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'ALL PARAM', 'CATEGORY', 'width']:
         ui.doubleSpinBox_from_param.setMaximum(5000)
         ui.doubleSpinBox_to_param.setMaximum(5000)
     else:
         ui.doubleSpinBox_from_param.setMaximum(1)
         ui.doubleSpinBox_to_param.setMaximum(1)
 
-    if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'CATEGORY']:
+    if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'CATEGORY', 'width']:
         ui.doubleSpinBox_from_param.setSingleStep(1)
         ui.doubleSpinBox_to_param.setSingleStep(1)
     elif ui.comboBox_y.currentText() in ['ALL PARAM']:
@@ -131,7 +131,7 @@ def set_spin_value():
         ui.doubleSpinBox_to_z.setMaximum(pd_data[ui.comboBox_z.currentText()].max())
 
 
-        if ui.comboBox_z.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'CATEGORY']:
+        if ui.comboBox_z.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'CATEGORY', 'width']:
             ui.doubleSpinBox_from_z.setSingleStep(1)
             ui.doubleSpinBox_to_z.setSingleStep(1)
         elif ui.comboBox_z.currentText() in ['ALL PARAM']:
@@ -158,10 +158,30 @@ def draw_graph_all_model():
 
     update_rectangle()
 
-    x = pd_data[ui.comboBox_x.currentText()].tolist()
-    y = pd_data[ui.comboBox_y.currentText()].tolist()
+    if ui.comboBox_z.currentText() != 'off':
 
-    ax_am.scatter(x, y)
+        pd_data_copy = pd_data.copy()
+        pd_data_copy = pd_data_copy.loc[pd_data_copy[ui.comboBox_z.currentText()] != 0]
+
+        sns.scatterplot(data=pd_data_copy, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
+                        hue=ui.comboBox_z.currentText(), sizes=(ui.spinBox_z_size_from.value(), ui.spinBox_z_size_to.value()), size=ui.comboBox_z.currentText(), ax=ax_am,
+                        palette='rainbow')
+
+        ui.label_8.show()
+        ui.label_9.show()
+        ui.doubleSpinBox_from_z.show()
+        ui.doubleSpinBox_to_z.show()
+
+    else:
+        x = pd_data[ui.comboBox_x.currentText()].tolist()
+        y = pd_data[ui.comboBox_y.currentText()].tolist()
+
+        ax_am.scatter(x, y)
+
+        ui.label_8.hide()
+        ui.label_9.hide()
+        ui.doubleSpinBox_from_z.hide()
+        ui.doubleSpinBox_to_z.hide()
 
     if choose_param():
         x_green = get_value_contain_param(ui.comboBox_x.currentText())
@@ -180,27 +200,6 @@ def draw_graph_all_model():
         ax_distr.grid(True)
         figure_distr.tight_layout()
         canvas_distr.draw()
-
-    if ui.comboBox_z.currentText() != 'off':
-
-        pd_data_copy = pd_data.copy()
-        pd_data_copy = pd_data_copy.loc[pd_data_copy[ui.comboBox_z.currentText()] != 0]
-
-        sns.scatterplot(data=pd_data_copy, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
-                        hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(), ax=ax_am,
-                        palette='rainbow')
-
-        ui.label_8.show()
-        ui.label_9.show()
-        ui.doubleSpinBox_from_z.show()
-        ui.doubleSpinBox_to_z.show()
-
-    else:
-        ui.label_8.hide()
-        ui.label_9.hide()
-        ui.doubleSpinBox_from_z.hide()
-        ui.doubleSpinBox_to_z.hide()
-
 
     ax_am.grid(True)
     ax_am.set_xlabel(ui.comboBox_x.currentText())
@@ -269,7 +268,7 @@ def draw_graph():
         pd_data_copy = pd.DataFrame({ui.comboBox_x.currentText(): x, ui.comboBox_y.currentText(): y, ui.comboBox_z.currentText(): z})
 
         sns.scatterplot(data=pd_data_copy, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
-                        hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(), ax=ax_out,
+                        hue=ui.comboBox_z.currentText(), sizes=(ui.spinBox_z_size_from.value(), ui.spinBox_z_size_to.value()), size=ui.comboBox_z.currentText(), ax=ax_out,
                         palette='rainbow')
 
 
@@ -366,7 +365,7 @@ def draw_zoom():
 
         pd_zoom = pd.DataFrame({ui.comboBox_x.currentText(): x, ui.comboBox_y.currentText(): y, ui.comboBox_z.currentText(): z})
         sns.scatterplot(data=pd_zoom, x=ui.comboBox_x.currentText(), y=ui.comboBox_y.currentText(),
-                        hue=ui.comboBox_z.currentText(), sizes=(10, 350), size=ui.comboBox_z.currentText(),
+                        hue=ui.comboBox_z.currentText(), sizes=(ui.spinBox_z_size_from.value(), ui.spinBox_z_size_to.value()), size=ui.comboBox_z.currentText(),
                         ax=ax_zoom, palette='rainbow')
         ui.label_mean.setText(str(round(np.mean(z), 2)))
 
@@ -557,6 +556,12 @@ def save_to_xlsx():
     pd_data.to_excel(path, index=False)
 
 
+def update_z_size():
+    if ui.doubleSpinBox_from_z.isVisible():
+        draw_graph_all_model()
+        draw_zoom()
+
+
 
 
 ui.comboBox_x.currentTextChanged.connect(set_spin_value)
@@ -574,6 +579,9 @@ ui.doubleSpinBox_from_param.valueChanged.connect(set_min_param)
 ui.doubleSpinBox_to_param.valueChanged.connect(set_max_param)
 ui.doubleSpinBox_from_z.valueChanged.connect(draw_graph_all_model)
 ui.doubleSpinBox_to_z.valueChanged.connect(draw_graph_all_model)
+
+ui.spinBox_z_size_from.valueChanged.connect(update_z_size)
+ui.spinBox_z_size_to.valueChanged.connect(update_z_size)
 
 ui.toolButton_rm_check.clicked.connect(rm_check)
 
