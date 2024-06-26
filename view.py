@@ -280,6 +280,47 @@ def draw_graph():
     fig.show()
 
 
+def draw_3d():
+    global pd_data
+
+    if ui.comboBox_z.currentText() == 'off':
+        return
+
+    x = pd_data[ui.comboBox_x.currentText()].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+    y = pd_data[ui.comboBox_y.currentText()].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+    z = pd_data[ui.comboBox_z.currentText()].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] >= ui.doubleSpinBox_from_z.value()].loc[
+        pd_data[ui.comboBox_z.currentText()] <= ui.doubleSpinBox_to_z.value()].tolist()
+
+
+    fig3d = plt.figure()
+    ax3d = fig3d.add_subplot(projection='3d')
+    ax3d.scatter(x, y, z, c=z, s=100, cmap='rainbow', alpha=0.6)
+    ax3d.set_xlabel(ui.comboBox_x.currentText())
+    ax3d.set_ylabel(ui.comboBox_y.currentText())
+    ax3d.set_zlabel(ui.comboBox_z.currentText())
+
+    fig3d.show()
+
+
 def draw_zoom():
     global pd_data
 
@@ -590,6 +631,7 @@ ui.toolButton_dict2.clicked.connect(calc_freq_param_in_area2)
 ui.toolButton_result.clicked.connect(calc_freq_param_result)
 
 ui.toolButton_draw_graph.clicked.connect(draw_graph)
+ui.toolButton_3d.clicked.connect(draw_3d)
 
 ui.pushButton_xlsx.clicked.connect(save_to_xlsx)
 

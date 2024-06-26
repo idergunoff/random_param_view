@@ -49,7 +49,9 @@ def parse_file(file_path):
     with open(file_path, 'r', encoding=enc) as file:
         lines = file.readlines()
         list_param = []
+        ui.progressBar.setMaximum(len(lines))
         for i in range(len(lines)):
+            ui.progressBar.setValue(i)
             if lines[i].startswith("Выбранные параметры:"):
                 dict_param = {}
                 param_str = [str(i) for i in lines[i+1][2:-3].split("', '")]
