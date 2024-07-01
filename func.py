@@ -34,7 +34,10 @@ def get_num_param(list_param):
             n_sig_up = int(i.split('_')[2])
             n_sig_down = int(i.split('_')[3])
         if i.startswith('distr'):
-            n_distr = int(i.split('_')[2])
+            try:
+                n_distr = int(i.split('_')[2])
+            except IndexError:
+                print(i)
         if i.startswith('sep'):
             n_sep = int(i.split('_')[2])
         if i.startswith('mfcc'):
@@ -44,7 +47,7 @@ def get_num_param(list_param):
 
 def parse_file(file_path):
     enc = check_encoding(file_path)
-    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'param', 'CATEGORY', 'ALL PARAM'])
+    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
     result = []
     with open(file_path, 'r', encoding=enc) as file:
         lines = file.readlines()
@@ -72,6 +75,7 @@ def parse_file(file_path):
 
                 dict_param['CATEGORY'] = len(list_param)
                 dict_param['ALL PARAM'] = calc_count_all_param(list_param)
+                dict_param['full_param'] = '//'.join(list_param)
                 dict_param['param'] = clear_list_param(list_param)
                 dict_param['sig up'] = n_sig_up
                 dict_param['sig down'] = n_sig_down

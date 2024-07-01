@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="add width,&#10;add spinbox z size">
+    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="add progressbar&#10;3D graph">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func.py" beforeDir="false" afterPath="$PROJECT_DIR$/func.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719295021878</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="add progressbar&#10;3D graph">
+      <option name="closed" value="true" />
+      <created>1719389226680</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1719389226680</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,6 +295,7 @@
     <MESSAGE value="draw graph from zoom" />
     <MESSAGE value="save table to xlsx" />
     <MESSAGE value="add width,&#10;add spinbox z size" />
-    <option name="LAST_COMMIT_MESSAGE" value="add width,&#10;add spinbox z size" />
+    <MESSAGE value="add progressbar&#10;3D graph" />
+    <option name="LAST_COMMIT_MESSAGE" value="add progressbar&#10;3D graph" />
   </component>
 </project>

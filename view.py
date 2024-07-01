@@ -47,7 +47,8 @@ def on_mouse_move(event):
             ui.doubleSpinBox_from_param.setValue(y - l_param)
         elif event.button == 3:
             x, y = event.xdata, event.ydata
-            list_nearest_param = get_nearest_list_param(x, y)
+            list_nearest_param, str_param = get_nearest_list_param(x, y)
+            ui.lineEdit_path.setText(str_param)
             for i in ui.listWidget.findChildren(QtWidgets.QCheckBox):
                 if i.text() in list_nearest_param:
                     i.setChecked(True)
@@ -60,7 +61,8 @@ def on_mouse_move_zoom(event):
     if event.inaxes:
         if event.button == 3:
             x, y = event.xdata, event.ydata
-            list_nearest_param = get_nearest_list_param(x, y)
+            list_nearest_param, str_param = get_nearest_list_param(x, y)
+            ui.lineEdit_path.setText(str_param)
             for i in ui.listWidget.findChildren(QtWidgets.QCheckBox):
                 if i.text() in list_nearest_param:
                     i.setChecked(True)
@@ -79,8 +81,9 @@ def get_nearest_list_param(x, y):
 
     pd_data_copy['distance'] = ((pd_data_copy['x_norm'] - x_norm) ** 2 + (pd_data_copy['y_norm'] - y_norm) ** 2) ** 0.5
     list_param = pd_data_copy['param'].loc[pd_data_copy['distance'] == pd_data_copy['distance'].min()].values[0]
+    str_param = pd_data_copy['full_param'].loc[pd_data_copy['distance'] == pd_data_copy['distance'].min()].values[0]
 
-    return list_param
+    return list_param, str_param
 
 
 
@@ -318,6 +321,7 @@ def draw_3d():
     ax3d.set_ylabel(ui.comboBox_y.currentText())
     ax3d.set_zlabel(ui.comboBox_z.currentText())
 
+    fig3d.tight_layout()
     fig3d.show()
 
 
