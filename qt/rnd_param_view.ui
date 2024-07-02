@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1399</width>
+    <width>1463</width>
     <height>624</height>
    </rect>
   </property>
@@ -253,6 +253,21 @@
          </item>
          <item>
           <property name="text">
+           <string>RECALL</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PRECISION</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>F1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>sig up</string>
           </property>
          </item>
@@ -410,6 +425,21 @@
          <item>
           <property name="text">
            <string>PERCENT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>RECALL</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PRECISION</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>F1</string>
           </property>
          </item>
          <item>

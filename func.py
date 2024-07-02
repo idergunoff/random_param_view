@@ -41,18 +41,20 @@ def get_num_param(list_param):
         if i.startswith('sep'):
             n_sep = int(i.split('_')[2])
         if i.startswith('mfcc'):
+            print(i)
             n_mfcc = int(i.split('_')[2])
     return n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc
 
 
 def parse_file(file_path):
     enc = check_encoding(file_path)
-    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
+    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
     result = []
     with open(file_path, 'r', encoding=enc) as file:
         lines = file.readlines()
         list_param = []
         ui.progressBar.setMaximum(len(lines))
+        n_param = 6 if any(line.startswith('recall') for line in lines) else 3
         for i in range(len(lines)):
             ui.progressBar.setValue(i)
             if lines[i].startswith("Выбранные параметры:"):
@@ -60,6 +62,18 @@ def parse_file(file_path):
                 param_str = [str(i) for i in lines[i+1][2:-3].split("', '")]
                 dict_param['param'] = param_str
                 list_param.append(param_str)
+            if lines[i].startswith("recall mean:"):
+                recall_mean = float(lines[i].split("recall mean:")[1].strip().split()[0])
+                dict_param['RECALL'] = recall_mean
+                list_param.append(recall_mean)
+            if lines[i].startswith("precision mean:"):
+                precision_mean = float(lines[i].split("precision mean:")[1].strip().split()[0])
+                dict_param['PRECISION'] = precision_mean
+                list_param.append(precision_mean)
+            if lines[i].startswith("f1 mean:"):
+                f1_mean = float(lines[i].split("f1 mean:")[1].strip().split()[0])
+                dict_param['F1'] = f1_mean
+                list_param.append(f1_mean)
             if lines[i].startswith("roc mean:"):
                 roc_mean = float(lines[i].split("roc mean:")[1].strip().split()[0])
                 dict_param['ROC AUC'] = roc_mean
@@ -68,7 +82,8 @@ def parse_file(file_path):
                 percent_mean = float(lines[i].split("percent mean:")[1].strip().split()[0])
                 dict_param['PERCENT'] = percent_mean
                 list_param.append(percent_mean)
-            if len(list_param) == 3:
+
+            if len(list_param) == n_param:
                 list_param = dict_param['param']
 
                 n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc = get_num_param(list_param)
