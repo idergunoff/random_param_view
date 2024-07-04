@@ -54,7 +54,7 @@ def parse_file(file_path):
         lines = file.readlines()
         list_param = []
         ui.progressBar.setMaximum(len(lines))
-        n_param = 6 if any(line.startswith('recall') for line in lines) else 3
+        n_param = 6 if any(line.startswith('recall mean:') for line in lines) else 3
         for i in range(len(lines)):
             ui.progressBar.setValue(i)
             if lines[i].startswith("Выбранные параметры:"):
