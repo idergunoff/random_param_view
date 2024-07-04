@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from func import *
-
+xlsx_check = False
 
 Form.show()
 
