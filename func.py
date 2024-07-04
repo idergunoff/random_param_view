@@ -1,4 +1,5 @@
 import json
+import os
 
 import pandas as pd
 
@@ -41,7 +42,6 @@ def get_num_param(list_param):
         if i.startswith('sep'):
             n_sep = int(i.split('_')[2])
         if i.startswith('mfcc'):
-            print(i)
             n_mfcc = int(i.split('_')[2])
     return n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc
 
@@ -100,8 +100,25 @@ def parse_file(file_path):
                 dict_param['mfcc'] = n_mfcc
 
                 pd_data = pd.concat([pd_data, pd.DataFrame([dict_param])], ignore_index=True)
-
                 list_param = []
+    return pd_data
+
+def parse_folder(file_path):
+    pd_data = pd.DataFrame(
+        columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
+    print('parse_folder', file_path)
+    dir_list = os.listdir(file_path)
+    for file in dir_list:
+        if not file.endswith('.txt'):
+            continue
+        file = file_path + '/' + file
+        with open(file, 'r'):
+            pd_data = pd.concat([pd_data, parse_file(file)], ignore_index=True)
+    path, _ = QFileDialog.getSaveFileName(None, "Save File", "", "Excel Files (*.xlsx);;All Files (*)")
+    if path == '':
+        return
+    pd_data.to_excel(path, index=False, engine='openpyxl')
+    print('saved')
     return pd_data
 
 
@@ -125,6 +142,16 @@ def find_common_param(list_param):
     common_param = Counter(flattened_list)
     return common_param
 
+
+def find_common_param_xlsx(list_param):
+    params = []
+    for param in list_param:
+        str_list = param.strip('[]')
+        list_elements = [elem.strip().strip("'\"") for elem in str_list.split(',')]
+        params.append(list_elements)
+    flattened_list = [item for sublist in params for item in sublist]
+    common_param = Counter(flattened_list)
+    return common_param
 
 
 

@@ -34,7 +34,6 @@ canvas_distr = FigureCanvas(figure_distr)
 ui.horizontalLayout_distr.addWidget(canvas_distr)
 ax_distr = figure_distr.add_subplot(111)
 
-
 def on_mouse_move(event):
     if event.inaxes:
         if event.button == 1:
@@ -100,7 +99,41 @@ def open_file():
     set_spin_value()
     draw_graph_all_model()
 
+def open_folder():
+    global pd_data
+    path = QFileDialog.getExistingDirectory()
+    if path == '':
+        return
+    ui.lineEdit_path.setText(path)
+    print('path', path)
+    pd_data = parse_folder(path)
+    #
+    # fill_list_param(sorted(get_list_param()))
 
+def get_list_param_xlsx():
+    global pd_data
+    common_param = dict(find_common_param_xlsx(pd_data['param'].tolist()))
+    common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
+
+    list_name_param = [elem[0] for elem in common_param]
+
+    return list_name_param
+
+
+def open_xlsx():
+    global pd_data
+    global xlsx_check
+
+    xlsx_check = True
+    path = QFileDialog.getOpenFileName()[0]
+    if path == '':
+        return
+    ui.lineEdit_path.setText(path)
+    pd_data = pd.read_excel(path, engine='openpyxl')
+    param = sorted(get_list_param_xlsx())
+    fill_list_param(param)
+    set_spin_value()
+    draw_graph_all_model()
 
 def set_spin_value():
     global pd_data
@@ -424,6 +457,7 @@ def draw_zoom():
 
 def draw_count_bar():
     global pd_data
+    global xlsx_check
 
     list_param = pd_data['param'].loc[
         pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
@@ -431,7 +465,10 @@ def draw_count_bar():
         pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
         pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
-    common_param = dict(find_common_param(list_param))
+    if xlsx_check:
+        common_param = dict(find_common_param_xlsx(list_param))
+    else:
+        common_param = dict(find_common_param(list_param))
     common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
 
     ax_cb.cla()
@@ -606,9 +643,6 @@ def update_z_size():
         draw_graph_all_model()
         draw_zoom()
 
-
-
-
 ui.comboBox_x.currentTextChanged.connect(set_spin_value)
 ui.comboBox_y.currentTextChanged.connect(set_spin_value)
 ui.comboBox_z.currentTextChanged.connect(set_spin_value)
@@ -617,6 +651,8 @@ ui.comboBox_y.currentTextChanged.connect(draw_graph_all_model)
 ui.comboBox_z.currentTextChanged.connect(draw_graph_all_model)
 
 ui.pushButton_open_file.clicked.connect(open_file)
+ui.pushButton_open_folder.clicked.connect(open_folder)
+ui.pushButton_open_xlsx.clicked.connect(open_xlsx)
 
 ui.doubleSpinBox_from_result.valueChanged.connect(set_min_result)
 ui.doubleSpinBox_to_result.valueChanged.connect(set_max_result)
