@@ -103,6 +103,7 @@ def parse_file(file_path):
                 list_param = []
     return pd_data
 
+
 def parse_folder(file_path):
     pd_data = pd.DataFrame(
         columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
@@ -141,20 +142,6 @@ def find_common_param(list_param):
     flattened_list = [item for sublist in list_param for item in sublist]
     common_param = Counter(flattened_list)
     return common_param
-
-
-def find_common_param_xlsx(list_param):
-    params = []
-    for param in list_param:
-        str_list = param.strip('[]')
-        list_elements = [elem.strip().strip("'\"") for elem in str_list.split(',')]
-        params.append(list_elements)
-    flattened_list = [item for sublist in params for item in sublist]
-    common_param = Counter(flattened_list)
-    return common_param
-
-
-
 
 
 

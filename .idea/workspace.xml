@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="add progressbar&#10;3D graph">
+    <list default="true" id="2afec2a1-040f-4490-8da5-6108e522883a" name="Changes" comment="xlsx_check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func.py" beforeDir="false" afterPath="$PROJECT_DIR$/func.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +21,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -91,7 +90,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5b207ade9991-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17890.14" />
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
       </set>
     </attachedChunks>
   </component>
@@ -264,7 +263,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719389226680</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="add recall">
+      <option name="closed" value="true" />
+      <created>1719906575900</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1719906575900</updated>
+    </task>
+    <task id="LOCAL-00022" summary="xlsx_check">
+      <option name="closed" value="true" />
+      <created>1720095933584</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1720095933584</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,6 +311,8 @@
     <MESSAGE value="save table to xlsx" />
     <MESSAGE value="add width,&#10;add spinbox z size" />
     <MESSAGE value="add progressbar&#10;3D graph" />
-    <option name="LAST_COMMIT_MESSAGE" value="add progressbar&#10;3D graph" />
+    <MESSAGE value="add recall" />
+    <MESSAGE value="xlsx_check" />
+    <option name="LAST_COMMIT_MESSAGE" value="xlsx_check" />
   </component>
 </project>

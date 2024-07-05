@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from func import *
-xlsx_check = False
+# xlsx_check = False
 
 Form.show()
 
@@ -93,7 +93,6 @@ def open_file():
         return
     ui.lineEdit_path.setText(path)
     pd_data = parse_file(path)
-
     fill_list_param(sorted(get_list_param()))
 
     set_spin_value()
@@ -107,30 +106,20 @@ def open_folder():
     ui.lineEdit_path.setText(path)
     print('path', path)
     pd_data = parse_folder(path)
-    #
-    # fill_list_param(sorted(get_list_param()))
-
-def get_list_param_xlsx():
-    global pd_data
-    common_param = dict(find_common_param_xlsx(pd_data['param'].tolist()))
-    common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
-
-    list_name_param = [elem[0] for elem in common_param]
-
-    return list_name_param
 
 
 def open_xlsx():
     global pd_data
-    global xlsx_check
 
-    xlsx_check = True
     path = QFileDialog.getOpenFileName()[0]
     if path == '':
         return
     ui.lineEdit_path.setText(path)
     pd_data = pd.read_excel(path, engine='openpyxl')
-    param = sorted(get_list_param_xlsx())
+
+    pd_data['param'] = pd_data['param'].str[1:-1].str.split(', ')
+
+    param = sorted(get_list_param())
     fill_list_param(param)
     set_spin_value()
     draw_graph_all_model()
@@ -457,7 +446,7 @@ def draw_zoom():
 
 def draw_count_bar():
     global pd_data
-    global xlsx_check
+    # global xlsx_check
 
     list_param = pd_data['param'].loc[
         pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
@@ -465,10 +454,7 @@ def draw_count_bar():
         pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
         pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
 
-    if xlsx_check:
-        common_param = dict(find_common_param_xlsx(list_param))
-    else:
-        common_param = dict(find_common_param(list_param))
+    common_param = dict(find_common_param(list_param))
     common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
 
     ax_cb.cla()
@@ -482,7 +468,6 @@ def draw_count_bar():
 
     figure_cb.tight_layout()
     canvas_cb.draw()
-
 
 
 def fill_list_param(param):
