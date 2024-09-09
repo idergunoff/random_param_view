@@ -126,6 +126,9 @@ def parse_folder(file_path):
 def clear_list_param(list_param):
     new_list_param = []
     for s in list_param:
+        if s in list_all_additional_features:
+            new_list_param.append(s)
+            continue
         parts = s.split('_')
         processed_parts = [re.sub(r'\d+', '', part) for part in parts]
         new_string = '_'.join(processed_parts)
