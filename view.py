@@ -116,6 +116,7 @@ def open_xlsx():
         return
     ui.lineEdit_path.setText(path)
     pd_data = pd.read_excel(path, engine='openpyxl')
+    print('open')
 
     pd_data['param'] = pd_data['param'].str[1:-1].str.split(', ')
 
@@ -130,6 +131,12 @@ def set_spin_value():
     if ui.comboBox_x.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'width']:
         ui.doubleSpinBox_from_result.setMaximum(1000)
         ui.doubleSpinBox_to_result.setMaximum(1000)
+    elif ui.comboBox_x.currentText() in ['MSE']:
+        ui.doubleSpinBox_from_result.setMaximum(30000)
+        ui.doubleSpinBox_to_result.setMaximum(30000)
+    elif ui.comboBox_x.currentText() in ['MAE']:
+        ui.doubleSpinBox_from_result.setMaximum(100)
+        ui.doubleSpinBox_to_result.setMaximum(100)
     else:
         ui.doubleSpinBox_from_result.setMaximum(1)
         ui.doubleSpinBox_to_result.setMaximum(1)

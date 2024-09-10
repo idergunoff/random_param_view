@@ -48,13 +48,16 @@ def get_num_param(list_param):
 
 def parse_file(file_path):
     enc = check_encoding(file_path)
-    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
+    pd_data = pd.DataFrame(columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'MAE', 'MSE', 'R2',
+                                    'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
     result = []
+    print(0)
     with open(file_path, 'r', encoding=enc) as file:
         lines = file.readlines()
         list_param = []
         ui.progressBar.setMaximum(len(lines))
         n_param = 6 if any(line.startswith('recall mean:') for line in lines) else 3
+        n_param = 4 if any(line.startswith('MSE mean:') for line in lines) else 3
         for i in range(len(lines)):
             ui.progressBar.setValue(i)
             if lines[i].startswith("Выбранные параметры:"):
@@ -82,12 +85,21 @@ def parse_file(file_path):
                 percent_mean = float(lines[i].split("percent mean:")[1].strip().split()[0])
                 dict_param['PERCENT'] = percent_mean
                 list_param.append(percent_mean)
-
+            if lines[i].startswith("MAE mean:"):
+                mae_mean = float(lines[i].split("MAE mean:")[1].strip().split()[0])
+                dict_param['MAE'] = mae_mean
+                list_param.append(mae_mean)
+            if lines[i].startswith("MSE mean:"):
+                mse_mean = float(lines[i].split("MSE mean:")[1].strip().split()[0])
+                dict_param['MSE'] = mse_mean
+                list_param.append(mse_mean)
+            if lines[i].startswith("R2 mean:"):
+                r2_mean = float(lines[i].split("R2 mean:")[1].strip().split()[0])
+                dict_param['R2'] = r2_mean
+                list_param.append(r2_mean)
             if len(list_param) == n_param:
                 list_param = dict_param['param']
-
                 n_sig_up, n_sig_down, n_distr, n_sep, n_mfcc = get_num_param(list_param)
-
                 dict_param['CATEGORY'] = len(list_param)
                 dict_param['ALL PARAM'] = calc_count_all_param(list_param)
                 dict_param['full_param'] = '//'.join(list_param)
@@ -106,7 +118,8 @@ def parse_file(file_path):
 
 def parse_folder(file_path):
     pd_data = pd.DataFrame(
-        columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
+        columns=['ROC AUC', 'PERCENT', 'RECALL', 'PRECISION', 'F1', 'MAE', 'MSE', 'R2',
+                 'param', 'CATEGORY', 'ALL PARAM', 'full_param'])
     print('parse_folder', file_path)
     dir_list = os.listdir(file_path)
     for file in dir_list:
@@ -118,7 +131,11 @@ def parse_folder(file_path):
     path, _ = QFileDialog.getSaveFileName(None, "Save File", "", "Excel Files (*.xlsx);;All Files (*)")
     if path == '':
         return
-    pd_data.to_excel(path, index=False, engine='openpyxl')
+    print('data saving')
+    try:
+        pd_data.to_excel(path, index=False, engine='openpyxl')
+    except:
+        pd_data.to_excel(path, index=False)
     print('saved')
     return pd_data
 

@@ -192,6 +192,21 @@
          </item>
          <item>
           <property name="text">
+           <string>MAE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MSE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>R2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>sig up</string>
           </property>
          </item>
@@ -303,6 +318,21 @@
          </item>
          <item>
           <property name="text">
+           <string>MAE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MSE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>R2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>sig up</string>
           </property>
          </item>
@@ -400,6 +430,9 @@
          <property name="decimals">
           <number>4</number>
          </property>
+         <property name="minimum">
+          <double>-1.000000000000000</double>
+         </property>
          <property name="maximum">
           <double>1.000000000000000</double>
          </property>
@@ -425,6 +458,9 @@
          </property>
          <property name="decimals">
           <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
          </property>
          <property name="maximum">
           <double>1.000000000000000</double>
@@ -475,6 +511,21 @@
          <item>
           <property name="text">
            <string>F1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MAE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MSE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>R2</string>
           </property>
          </item>
          <item>
