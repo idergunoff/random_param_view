@@ -56,8 +56,14 @@ def parse_file(file_path):
         lines = file.readlines()
         list_param = []
         ui.progressBar.setMaximum(len(lines))
-        n_param = 6 if any(line.startswith('recall mean:') for line in lines) else 3
-        n_param = 4 if any(line.startswith('MSE mean:') for line in lines) else 3
+        if any(line.startswith('recall mean:') for line in lines):
+            n_param = 6
+        elif any(line.startswith('MSE mean:') for line in lines):
+            n_param = 4
+        else:
+            n_param = 3
+        # n_param = 6 if any(line.startswith('recall mean:') for line in lines) else 3
+        # n_param = 4 if any(line.startswith('MSE mean:') for line in lines) else 3
         for i in range(len(lines)):
             ui.progressBar.setValue(i)
             if lines[i].startswith("Выбранные параметры:"):
@@ -113,6 +119,7 @@ def parse_file(file_path):
 
                 pd_data = pd.concat([pd_data, pd.DataFrame([dict_param])], ignore_index=True)
                 list_param = []
+    pd_data.to_excel('test.xlsx')
     return pd_data
 
 
