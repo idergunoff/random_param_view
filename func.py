@@ -119,7 +119,7 @@ def parse_file(file_path):
 
                 pd_data = pd.concat([pd_data, pd.DataFrame([dict_param])], ignore_index=True)
                 list_param = []
-    pd_data.to_excel('test.xlsx')
+    # pd_data.to_excel('test.xlsx')
     return pd_data
 
 
