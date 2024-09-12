@@ -470,7 +470,7 @@ def draw_count_bar():
     color_list = ['#ff9f98' if i in checked_param else '#aad5ff' for i in list_name_param]
     ax_cb.bar(list_name_param, [elem[1] for elem in common_param], color=color_list)
     ax_cb.grid(True)
-    ax_cb.tick_params(axis='x', labelrotation=90, labelsize=8)
+    ax_cb.tick_params(axis='x', labelrotation=90, labelsize=5)
     ax_cb.set_title(f'Параметры в выделенной области по {len(list_param)} моделям.')
 
     figure_cb.tight_layout()
@@ -544,11 +544,11 @@ def calc_freq_param_result():
 
     ax_distr.cla()
     ax_distr.bar([elem[0] for elem in dict_result], [elem[1] for elem in dict_result])
-    ax_distr.tick_params(axis='x', labelrotation=90, labelsize=8)
+    ax_distr.tick_params(axis='x', labelrotation=90, labelsize=5)
     ax_distr.grid(True)
     figure_distr.tight_layout()
     canvas_distr.draw()
-
+a
 
 def choose_param():
     list_checked = []
