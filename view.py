@@ -477,6 +477,33 @@ def draw_count_bar():
     canvas_cb.draw()
 
 
+
+def draw_bar1():
+    global pd_data
+    # global xlsx_check
+
+    list_param = pd_data['param'].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
+
+    common_param = dict(find_common_param(list_param))
+    common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
+
+    fig_bar1, ax_out_bar1 = plt.subplots(figsize=(15, 5))
+    list_name_param = [elem[0] for elem in common_param]
+    checked_param = choose_param()
+    color_list = ['#ff9f98' if i in checked_param else '#aad5ff' for i in list_name_param]
+    ax_out_bar1.bar(list_name_param, [elem[1] for elem in common_param], color=color_list)
+    ax_out_bar1.grid(True)
+    ax_out_bar1.tick_params(axis='x', labelrotation=90, labelsize=8)
+    ax_out_bar1.set_title(f'Параметры в выделенной области по {len(list_param)} моделям.')
+
+    fig_bar1.tight_layout()
+    fig_bar1.show()
+
+
 def fill_list_param(param):
     ui.listWidget.clear()
     for i in param:
@@ -548,6 +575,27 @@ def calc_freq_param_result():
     ax_distr.grid(True)
     figure_distr.tight_layout()
     canvas_distr.draw()
+
+
+def draw_bar2():
+    global dict1, dict2
+
+    dict_result = {}
+    for key, value in dict1.items():
+        try:
+            dict_result[key] = value - dict2[key]
+        except KeyError:
+            dict_result[key] = value
+
+    dict_result = sorted(dict_result.items(), key=lambda x: x[1], reverse=True)
+
+
+    fig_out_distr, ax_out_distr = plt.subplots(figsize=(15, 5))
+    ax_out_distr.bar([elem[0] for elem in dict_result], [elem[1] for elem in dict_result])
+    ax_out_distr.tick_params(axis='x', labelrotation=90, labelsize=8)
+    ax_out_distr.grid(True)
+    fig_out_distr.tight_layout()
+    fig_out_distr.show()
 
 
 def choose_param():
@@ -664,6 +712,8 @@ ui.toolButton_result.clicked.connect(calc_freq_param_result)
 
 ui.toolButton_draw_graph.clicked.connect(draw_graph)
 ui.toolButton_3d.clicked.connect(draw_3d)
+ui.toolButton_draw_bar1.clicked.connect(draw_bar1)
+ui.toolButton_draw_bar2.clicked.connect(draw_bar2)
 
 ui.pushButton_xlsx.clicked.connect(save_to_xlsx)
 
