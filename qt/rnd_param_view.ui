@@ -13,7 +13,17 @@
   <property name="windowTitle">
    <string>RandomParamView</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_10" columnstretch="8,1,0">
+  <layout class="QGridLayout" name="gridLayout_10" columnstretch="8,1,0,0">
+   <item row="0" column="0">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="1">
     <layout class="QGridLayout" name="gridLayout_6" rowstretch="0,1,0">
      <item row="0" column="0">
@@ -132,408 +142,10 @@
      </item>
      <item row="2" column="0">
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="12">
-        <widget class="QLabel" name="label_3">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(143, 240, 164);</string>
-         </property>
-         <property name="text">
-          <string>from Y:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="18">
-        <widget class="QLabel" name="label_8">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(246, 97, 81);</string>
-         </property>
-         <property name="text">
-          <string>to Z:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="comboBox_x">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(153, 193, 241);</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>ROC AUC</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PERCENT</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>RECALL</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PRECISION</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>F1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MAE</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MSE</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>R2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>sig up</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>sig down</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>width</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>distr</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>sep</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>mfcc</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_6">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(143, 240, 164);</string>
-         </property>
-         <property name="text">
-          <string>Y:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="21">
-        <widget class="QToolButton" name="toolButton_draw_graph">
-         <property name="toolTip">
-          <string>draw graph</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.077, fx:0.5, fy:0.5, stop:0 rgba(0, 169, 255, 147), stop:0.497326 rgba(0, 0, 0, 147), stop:1 rgba(0, 169, 255, 147));</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="10">
-        <widget class="QLabel" name="label_2">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(98, 160, 234);</string>
-         </property>
-         <property name="text">
-          <string>to X:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(153, 193, 241);</string>
-         </property>
-         <property name="text">
-          <string>X:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="17">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_from_z">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 159, 152);</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QLabel" name="label_7">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 159, 152);</string>
-         </property>
-         <property name="text">
-          <string>Z:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="22">
-        <widget class="QToolButton" name="toolButton_draw_bar1">
-         <property name="toolTip">
-          <string>graph BAR1</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 190, 111);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="11">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_result">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(98, 160, 234);</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-         <property name="minimum">
-          <double>0.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>1.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.001000000000000</double>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="7">
-        <spacer name="horizontalSpacer">
+        <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="5">
-        <widget class="QLabel" name="label_mean">
-         <property name="text">
-          <string>mean</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="8">
-        <widget class="QLabel" name="label">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(153, 193, 241);</string>
-         </property>
-         <property name="text">
-          <string>from X:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="20">
-        <widget class="QToolButton" name="toolButton_3d">
-         <property name="styleSheet">
-          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));</string>
-         </property>
-         <property name="text">
-          <string>3D</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="13">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_from_param">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(143, 240, 164);</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="19">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_z">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(246, 97, 81);</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="14">
-        <widget class="QLabel" name="label_4">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(87, 227, 137);</string>
-         </property>
-         <property name="text">
-          <string>to Y:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="9">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_from_result">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(153, 193, 241);</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-         <property name="minimum">
-          <double>-1.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>1.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.001000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QComboBox" name="comboBox_y">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(143, 240, 164);</string>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <item>
-          <property name="text">
-           <string>ALL PARAM</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CATEGORY</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ROC AUC</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PERCENT</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>RECALL</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PRECISION</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>F1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MAE</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MSE</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>R2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>sig up</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>sig down</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>width</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>distr</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>sep</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>mfcc</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="0" column="16">
-        <widget class="QLabel" name="label_9">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 159, 152);</string>
-         </property>
-         <property name="text">
-          <string>from Z:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -629,17 +241,7 @@
          </item>
         </widget>
        </item>
-       <item row="0" column="15">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_param">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(87, 227, 137);</string>
-         </property>
-         <property name="decimals">
-          <number>4</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="23">
+       <item row="0" column="30">
         <widget class="QToolButton" name="toolButton_draw_bar2">
          <property name="toolTip">
           <string>graph BAR2</string>
@@ -652,11 +254,446 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
+         </property>
+         <property name="text">
+          <string>X:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="25">
+        <widget class="QToolButton" name="toolButton_copy_param">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 0, 255);</string>
+         </property>
+         <property name="text">
+          <string> </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="16">
+        <widget class="QLabel" name="label_3">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="text">
+          <string>from Y:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="18">
+        <widget class="QLabel" name="label_4">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(87, 227, 137);</string>
+         </property>
+         <property name="text">
+          <string>to Y:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="19">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_param">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(87, 227, 137);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox_x">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>ROC AUC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PERCENT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>RECALL</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PRECISION</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>F1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MAE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MSE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>R2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig up</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig down</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>width</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>distr</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sep</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>mfcc</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="comboBox_y">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>ALL PARAM</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>CATEGORY</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ROC AUC</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PERCENT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>RECALL</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PRECISION</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>F1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MAE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MSE</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>R2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig up</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sig down</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>width</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>distr</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>sep</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>mfcc</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_6">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="text">
+          <string>Y:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_7">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 159, 152);</string>
+         </property>
+         <property name="text">
+          <string>Z:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="12">
+        <widget class="QLabel" name="label">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
+         </property>
+         <property name="text">
+          <string>from X:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="label_mean">
+         <property name="text">
+          <string>mean</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="14">
+        <widget class="QLabel" name="label_2">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(98, 160, 234);</string>
+         </property>
+         <property name="text">
+          <string>to X:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="21">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_from_z">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 159, 152);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="29">
+        <widget class="QToolButton" name="toolButton_draw_bar1">
+         <property name="toolTip">
+          <string>graph BAR1</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 190, 111);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="28">
+        <widget class="QToolButton" name="toolButton_draw_graph">
+         <property name="toolTip">
+          <string>draw graph</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.077, fx:0.5, fy:0.5, stop:0 rgba(0, 169, 255, 147), stop:0.497326 rgba(0, 0, 0, 147), stop:1 rgba(0, 169, 255, 147));</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="15">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_result">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(98, 160, 234);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="23">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_to_z">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(246, 97, 81);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="17">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_from_param">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(143, 240, 164);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="13">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_from_result">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(153, 193, 241);</string>
+         </property>
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>-1.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.001000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="20">
+        <widget class="QLabel" name="label_9">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 159, 152);</string>
+         </property>
+         <property name="text">
+          <string>from Z:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="22">
+        <widget class="QLabel" name="label_8">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(246, 97, 81);</string>
+         </property>
+         <property name="text">
+          <string>to Z:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="24">
+        <widget class="QToolButton" name="toolButton_3d">
+         <property name="styleSheet">
+          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));</string>
+         </property>
+         <property name="text">
+          <string>3D</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="26">
+        <widget class="QSpinBox" name="spinBox_copy_param">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 0, 255);</string>
+         </property>
+         <property name="maximum">
+          <number>500</number>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
    </item>
-   <item row="0" column="2">
+   <item row="0" column="3">
     <layout class="QGridLayout" name="gridLayout_8">
      <item row="0" column="0">
       <widget class="QListWidget" name="listWidget"/>
@@ -713,16 +750,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="0" column="0">
-    <widget class="QProgressBar" name="progressBar">
-     <property name="value">
-      <number>0</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

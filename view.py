@@ -555,7 +555,6 @@ def calc_freq_param_in_area2():
     global dict2
     dict2 = calc_freq_param_in_area()
 
-
 def calc_freq_param_result():
     global dict1, dict2
 
@@ -575,7 +574,7 @@ def calc_freq_param_result():
     ax_distr.grid(True)
     figure_distr.tight_layout()
     canvas_distr.draw()
-a
+
 
 def draw_bar2():
     global dict1, dict2
@@ -587,6 +586,7 @@ def draw_bar2():
         except KeyError:
             dict_result[key] = value
 
+
     dict_result = sorted(dict_result.items(), key=lambda x: x[1], reverse=True)
 
 
@@ -596,6 +596,28 @@ def draw_bar2():
     ax_out_distr.grid(True)
     fig_out_distr.tight_layout()
     fig_out_distr.show()
+
+
+def copy_list_param():
+    global pd_data
+    num = ui.spinBox_copy_param.value()
+    ui.lineEdit_path.clear()
+
+    list_param = pd_data['full_param'].loc[
+        pd_data[ui.comboBox_x.currentText()] >= ui.doubleSpinBox_from_result.value()].loc[
+        pd_data[ui.comboBox_x.currentText()] <= ui.doubleSpinBox_to_result.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] >= ui.doubleSpinBox_from_param.value()].loc[
+        pd_data[ui.comboBox_y.currentText()] <= ui.doubleSpinBox_to_param.value()].tolist()
+
+    line = '//'.join(list_param) + '//'
+    common_param = line.split('//')
+    common_param = Counter(common_param)
+    common_param = sorted(common_param.items(), key=lambda x: x[1], reverse=True)
+    cut_param = [item for item in common_param if item[1] >= num]
+
+    list_name_param = [elem[0] for elem in cut_param]
+    line_param = '//'.join(item.strip("'") for item in list_name_param)
+    ui.lineEdit_path.setText(line_param)
 
 
 def choose_param():
@@ -714,6 +736,7 @@ ui.toolButton_draw_graph.clicked.connect(draw_graph)
 ui.toolButton_3d.clicked.connect(draw_3d)
 ui.toolButton_draw_bar1.clicked.connect(draw_bar1)
 ui.toolButton_draw_bar2.clicked.connect(draw_bar2)
+ui.toolButton_copy_param.clicked.connect(copy_list_param)
 
 ui.pushButton_xlsx.clicked.connect(save_to_xlsx)
 
