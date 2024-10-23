@@ -150,7 +150,7 @@ def parse_folder(file_path):
 def clear_list_param(list_param):
     new_list_param = []
     for s in list_param:
-        if s in list_all_additional_features:
+        if s in list_all_additional_features or s[5:] in list_all_additional_features:
             new_list_param.append(s)
             continue
         parts = s.split('_')
