@@ -142,8 +142,8 @@ def set_spin_value():
         ui.doubleSpinBox_to_result.setMaximum(1)
 
     if ui.comboBox_y.currentText() in ['sig up', 'sig down', 'distr', 'sep', 'mfcc', 'ALL PARAM', 'CATEGORY', 'width']:
-        ui.doubleSpinBox_from_param.setMaximum(5000)
-        ui.doubleSpinBox_to_param.setMaximum(5000)
+        ui.doubleSpinBox_from_param.setMaximum(15000)
+        ui.doubleSpinBox_to_param.setMaximum(15000)
     else:
         ui.doubleSpinBox_from_param.setMaximum(1)
         ui.doubleSpinBox_to_param.setMaximum(1)
